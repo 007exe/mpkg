@@ -1,7 +1,9 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include <mpkgsupport/mpkgsupport.h>
-#include <agiliasetup.h>
+//#include <agiliasetup.h>
+#include "../../libagiliasetup/agiliasetup.h"
+
 MainWindow::MainWindow(QWidget *parent) : QDialog(parent), ui(new Ui::MainWindowClass) {
 	if (FileExists("/var/run/guisetup_exec.pid")) {
 		string pid_locked = ReadFile("/var/run/guisetup_exec.pid").c_str();

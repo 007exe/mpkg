@@ -1,8 +1,8 @@
 #include "textsetup.h"
 #include "mediachecker.h"
 #include "mechanics.h"
-#include <agiliasetup.h>
-
+//#include <agiliasetup.h>
+#include "../../libagiliasetup/agiliasetup.h"
 TextSetup::TextSetup(string _distro_version) {
 	distro_version = _distro_version;
 	string home = getenv("HOME");

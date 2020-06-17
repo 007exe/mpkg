@@ -53,7 +53,7 @@ QT4_WRAP_UI(mpkg-gui-installer_UI_HDR ${mpkg-gui-installer_UI})
 QT4_WRAP_CPP(mpkg-gui-installer_MOC_SRC ${mpkg-gui-installer_MOC_HDR})
 INCLUDE_DIRECTORIES(${CMAKE_BINARY_DIR})
 ADD_EXECUTABLE(mpkg-gui-installer ${mpkg-gui-installer_SRC} ${mpkg-gui-installer_MOC_SRC} ${mpkg-gui-installer_UI_HDR})
-TARGET_LINK_LIBRARIES(mpkg-gui-installer ${QT_LIBRARIES} mpkg)
+TARGET_LINK_LIBRARIES(mpkg-gui-installer ${QT_LIBRARIES} mpkg mpkgsupport)
 
 # Installation
  

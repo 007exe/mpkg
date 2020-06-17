@@ -6,7 +6,8 @@
 #include "help.h"
 #include "mount.h"
 #include <QLocale>
-#include <agiliasetup.h>
+//#include <agiliasetup.h>
+#include "../../libagiliasetup/agiliasetup.h"
 #include "customsetup.h"
 MainWindow *guiObject;
 

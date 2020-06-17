@@ -1,8 +1,8 @@
 #include <nwidgets/ncurses_if.h>
 #include <cstdlib>
 #include <mpkgsupport/mpkgsupport.h>
-#include <agiliasetup.h>
-
+//#include <agiliasetup.h>
+#include "../../libagiliasetup/agiliasetup.h"
 int main() {
 	CursesInterface ncInterface;
 	setlocale(LC_ALL, "");

@@ -21,7 +21,7 @@ ADD_DEFINITIONS(-DINSTALL_PREFIX="${CMAKE_INSTALL_PREFIX}")
 
 ADD_DEFINITIONS(${CXXFLAGS})
 ADD_EXECUTABLE(setup_exec main eventhandler)
-TARGET_LINK_LIBRARIES(setup_exec mpkg agiliasetup)
+TARGET_LINK_LIBRARIES(setup_exec mpkg mpkgsupport agiliasetup nwidgets)
 
 INSTALL(TARGETS setup_exec DESTINATION bin)
 
