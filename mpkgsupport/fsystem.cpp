@@ -7,7 +7,7 @@ PThreadWaiter::PThreadWaiter() {
 }
 
 PThreadWaiter::~PThreadWaiter() {
-	int ret;
+	int *ret;
 	for (size_t i=0; i<threads.size(); ++i) {
 		cout << "Waiting threads to finish: " << i << " of " << threads.size() << endl;
 		pthread_join(threads[i], (void **) &ret);
@@ -16,8 +16,8 @@ PThreadWaiter::~PThreadWaiter() {
 
 void PThreadWaiter::registerThread(pthread_t id) {
 	// Let's limit number of opened threads to 4
-	
-	int ret;
+
+	int *ret;
 	while (threads.size()>=4) { // 4 will be enough for most systems. Greater values often gives more speed, but can cause out-of-memory on some systems.
 		pthread_join(threads[0], (void **) &ret);
 		threads.erase(threads.begin());
