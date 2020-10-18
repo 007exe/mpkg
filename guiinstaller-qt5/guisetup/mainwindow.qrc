@@ -1,0 +1,21 @@
+<RCC>
+  <qresource prefix="setupRoots">
+    <file>icons/logo_wide_big.svg</file>
+    <file>icons/agilia_installer_head.png</file>
+    <file>icons/welcome.jpg</file>
+    <file>icons/wicd-gtk.png</file>
+    <file>icons/agilia_installer.png</file>
+    <file>icons/logo_wide.svg</file>
+    <file>icons/application-x-cd-image.png</file>
+    <file>icons/help-about.png</file>
+    <file>icons/arrow-left.png</file>
+    <file>icons/arrow-right.png</file>
+    <file>icons/application-x-compressed-tar.png</file>
+    <file>icons/preferences-system.png</file>
+    <file>icons/drive-harddisk.png</file>
+    <file>icons/input-keyboard.png</file>
+    <file>icons/network-wired.png</file>
+    <file>icons/network-wireless.png</file>
+    <file>icons/media-optical-data.png</file>
+  </qresource>
+</RCC>
