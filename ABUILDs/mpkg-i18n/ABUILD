@@ -10,7 +10,7 @@ arch="noarch"
 shortdesc=("MPKG package system: localization files")
 
 # Source URL
-source=("git:git://github.com/aix27249/mpkg.git")
+source=("git:git://github.com/007exe/mpkg.git")
 
 # Tags
 tags="app-i18n base"

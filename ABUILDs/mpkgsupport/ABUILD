@@ -9,7 +9,7 @@ shortdesc=("Support library from mpkg")
 longdesc=("Support library from mpkg. Contains many useful functions, not related directly to mpkg and which can be used in other programs.")
 
 # Source URL
-source=("git:git://github.com/aix27249/mpkg.git")
+source=("git:git://github.com/007exe/mpkg.git")
 
 # Tags
 tags="base sys-libs"

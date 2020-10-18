@@ -9,7 +9,7 @@ shortdesc=("MPKG package system: core libraries")
 longdesc=("The core of mpkg.")
 
 # Source URL
-source=("git:git://github.com/aix27249/mpkg.git")
+source=("git:git://github.com/007exe/mpkg.git")
 
 # Tags
 tags="base sys-pkgtools"

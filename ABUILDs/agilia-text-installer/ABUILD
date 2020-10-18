@@ -9,7 +9,7 @@ shortdesc=("AgiliaLinux ncurses-based text mode system installer")
 longdesc=("This is text version of AgiliaLinux installer.")
 
 # Source URL
-source=("git:git://github.com/aix27249/mpkg.git")
+source=("git:git://github.com/007exe/mpkg.git")
 
 # Tags
 tags="xapps sys-apps"

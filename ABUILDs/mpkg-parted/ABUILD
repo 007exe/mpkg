@@ -8,7 +8,7 @@ shortdesc=("mpkg parted libs")
 longdesc=("Parted bindings for mpkg, mainly used by system installers such as agilia-gui-installer.")
 
 # Source URL
-source=("git:git://github.com/aix27249/mpkg.git")
+source=("git:git://github.com/007exe/mpkg.git")
 
 # Tags
 tags="console dev-util"

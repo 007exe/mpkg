@@ -9,7 +9,7 @@ shortdesc=("AgiliaLinux system installer")
 longdesc=("This is an AgiliaLinux installer. It is used to install this operating system from LiveCD. Also you can try to use it from real system.")
 
 # Source URL
-source=("git:git://github.com/aix27249/mpkg.git")
+source=("git:git://github.com/007exe/mpkg.git")
 
 # Tags
 tags="xapps sys-apps"

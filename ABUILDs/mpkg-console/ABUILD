@@ -11,7 +11,7 @@ shortdesc=("MPKG package system: console utilities")
 longdesc=("Console tools related to mpkg. A must-have package.")
 
 # Source URL
-source=("git:git://github.com/aix27249/mpkg.git")
+source=("git:git://github.com/007exe/mpkg.git")
 # Tags
 tags="base sys-pkgtools"
 

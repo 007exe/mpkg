@@ -9,7 +9,7 @@ shortdesc=("NCurses widgets framework")
 longdesc=("NCurses widgets framework.")
 
 # Source URL
-source=("git:git://github.com/aix27249/mpkg.git")
+source=("git:git://github.com/007exe/mpkg.git")
 
 # Tags
 tags="base sys-libs"
