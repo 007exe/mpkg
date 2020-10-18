@@ -1,3 +1,5 @@
+// This is an open source non-commercial project. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 /*
  * mparted: libparted-based partition table editor with ncurses-based interface.
  * This is FREE SOFTWARE, licensed under terms of GPLv3+.

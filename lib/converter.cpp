@@ -1,3 +1,5 @@
+// This is an open source non-commercial project. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 /******************************************************
  * Data converter for legacy Slackware packages
  * $Id: converter.cpp,v 1.18 2007/11/28 02:24:25 i27249 Exp $

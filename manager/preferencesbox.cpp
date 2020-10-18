@@ -1,3 +1,5 @@
+// This is an open source non-commercial project. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 /***************************************************************************
  * MOPSLinux packaging system - package manager - preferences
  * $Id: preferencesbox.cpp,v 1.21 2007/08/24 11:36:13 i27249 Exp $

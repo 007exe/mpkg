@@ -1,3 +1,5 @@
+// This is an open source non-commercial project. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 /* Reads package names from specified file, and generates it's dependency order using data from mpkg database.
  * Note that the latest known packages will be always picked.
  */

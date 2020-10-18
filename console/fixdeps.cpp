@@ -1,3 +1,5 @@
+// This is an open source non-commercial project. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 /* MPKG package system
  * Broken dependency fixing tool
  * (c) 2010 Bogdan "aix27249" Kokorev, <i27249@gmail.com>

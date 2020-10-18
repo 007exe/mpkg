@@ -1,3 +1,5 @@
+// This is an open source non-commercial project. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 /******************************************************
  * MPKG packaging system - global configuration
  * $Id: config.cpp,v 1.54 2007/12/10 03:12:58 i27249 Exp $

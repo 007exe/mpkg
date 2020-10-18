@@ -1,3 +1,5 @@
+// This is an open source non-commercial project. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 /*******************************************************
  * File operations
  * $Id: file_routines.cpp,v 1.51 2007/12/07 03:34:20 i27249 Exp $

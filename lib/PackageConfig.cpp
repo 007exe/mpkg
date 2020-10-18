@@ -1,3 +1,5 @@
+// This is an open source non-commercial project. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 /*
 * XML parser of package config
 * $Id: PackageConfig.cpp,v 1.43 2007/12/10 03:12:58 i27249 Exp $

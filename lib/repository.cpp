@@ -1,3 +1,5 @@
+// This is an open source non-commercial project. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 /******************************************************************
  * Repository class: build index, get index...etc.
  * $Id: repository.cpp,v 1.74 2007/11/03 01:08:15 i27249 Exp $

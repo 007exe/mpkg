@@ -1,3 +1,5 @@
+// This is an open source non-commercial project. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 // $Id: package.cpp,v 1.9 2007/12/07 03:34:20 i27249 Exp $
 
 #include "package.h"

@@ -1,3 +1,5 @@
+// This is an open source non-commercial project. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 // This utility will checkout filelist.tar.xz from all enabled repositories and create import_filelist.sql file
 // NOTE: This should be run ***AFTER*** mpkg-update (we need correct package_id)
 #include <mpkg/libmpkg.h>

@@ -1,3 +1,5 @@
+// This is an open source non-commercial project. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 #include <mpkg/libmpkg.h>
 
 void check_conflicts(mpkg *core, const PACKAGE& package, vector<string> &fileNames, vector<int> &package_ids)

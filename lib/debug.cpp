@@ -1,3 +1,5 @@
+// This is an open source non-commercial project. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 /* Debugging output function(s)
  $Id: debug.cpp,v 1.23 2007/11/04 14:15:08 i27249 Exp $
  */
