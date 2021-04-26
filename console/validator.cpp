@@ -3,7 +3,7 @@
 #include <mpkg/libmpkg.h>
 string fatalSummary, blockingSummary, warningSummary, okSummary;
 int print_usage(int err=0) {
-	printf(_("Usage: mpkg-validate FILENAME\n"));
+	printf("%s",_("Usage: mpkg-validate FILENAME\n"));
 	return err;
 }
 int fatalCount=0, blockingCount=0, warningCount=0, okCount=0;

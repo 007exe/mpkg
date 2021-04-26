@@ -3,34 +3,34 @@
 #include <mpkg/libmpkg.h>
 #include <mpkg/metaframe.h>
 int print_usage() {
-	fprintf(stderr, _("MPKG Package System: package metadata editor (CLI-based)\n"));
-	fprintf(stderr, _("Usage: mpkg-setmeta FILENAME [OPTIONS]\n"));
-	fprintf(stderr, _("Options:\n"));
-	fprintf(stderr, _("-h   --help                      show this help\n"));
-	fprintf(stderr, _("-n   --name=NAME                 set package name\n"));
-	fprintf(stderr, _("-v   --version=VERSION           set package version\n"));
-	fprintf(stderr, _("-a   --arch=ARCH                 set package architecture\n"));
-	fprintf(stderr, _("-b   --build=BUILD               set package build\n"));
-	fprintf(stderr, _("-B   --buildup                   increase package build\n"));
-	fprintf(stderr, _("-N   --basename                  set name, version, arch and build by specified filename\n"));
-	fprintf(stderr, _("-m   --maintainer-name=NAME      set maintainer name\n"));
-	fprintf(stderr, _("-e   --maintainer-email=MAIL     set maintainer email\n"));
-	fprintf(stderr, _("-t   --add-tag=TAG               add tag to package\n"));
-	fprintf(stderr, _("-T   --remove-tag=TAG            remove tag from package\n"));
-	fprintf(stderr, _("-d   --add-dep=DEP               add dependency (format: foo>=1.0)\n"));
-	fprintf(stderr, _("-D   --remove-dep=DEP            remove dependency (format: foo)\n"));
-	fprintf(stderr, _("-S   --shortdesc=FILE|TEXT       set short description\n"));
-	fprintf(stderr, _("-l   --longdesc=FILE|TEXT        set long description\n"));
-	fprintf(stderr, _("-c   --changelog=FILENAME|TEXT   set changelog\n"));
-	fprintf(stderr, _("-X   --cleartags                 clear all previous tags\n"));
-	fprintf(stderr, _("-Z   --cleardeps                 clear all previous dependencies\n"));
-	fprintf(stderr, _("-p   --provides                  set provides value\n"));
-	fprintf(stderr, _("-P   --clearprovides             clear provides value\n"));
-	fprintf(stderr, _("-k   --conflicts                 set conflicts value\n"));
-	fprintf(stderr, _("-K   --clearconflicts            clear conflicts value\n"));
-	fprintf(stderr, _("-s   --keep-symlinks             keep symlinks in archive instead of moving it to doinst.sh\n"));
-	fprintf(stderr, _("-f   --config-files=FILENAME     specify filename with list of configuration files and it's options. Replaces existing ones\n"));
-	fprintf(stderr, _("-F   --clear-config-files        clears list of configuration files\n"));
+	fprintf(stderr, "%s",_("MPKG Package System: package metadata editor (CLI-based)\n"));
+	fprintf(stderr, "%s",_("Usage: mpkg-setmeta FILENAME [OPTIONS]\n"));
+	fprintf(stderr, "%s",_("Options:\n"));
+	fprintf(stderr, "%s",_("-h   --help                      show this help\n"));
+	fprintf(stderr, "%s",_("-n   --name=NAME                 set package name\n"));
+	fprintf(stderr, "%s",_("-v   --version=VERSION           set package version\n"));
+	fprintf(stderr, "%s",_("-a   --arch=ARCH                 set package architecture\n"));
+	fprintf(stderr, "%s",_("-b   --build=BUILD               set package build\n"));
+	fprintf(stderr, "%s",_("-B   --buildup                   increase package build\n"));
+	fprintf(stderr, "%s",_("-N   --basename                  set name, version, arch and build by specified filename\n"));
+	fprintf(stderr, "%s",_("-m   --maintainer-name=NAME      set maintainer name\n"));
+	fprintf(stderr, "%s",_("-e   --maintainer-email=MAIL     set maintainer email\n"));
+	fprintf(stderr, "%s",_("-t   --add-tag=TAG               add tag to package\n"));
+	fprintf(stderr, "%s",_("-T   --remove-tag=TAG            remove tag from package\n"));
+	fprintf(stderr, "%s",_("-d   --add-dep=DEP               add dependency (format: foo>=1.0)\n"));
+	fprintf(stderr, "%s",_("-D   --remove-dep=DEP            remove dependency (format: foo)\n"));
+	fprintf(stderr, "%s",_("-S   --shortdesc=FILE|TEXT       set short description\n"));
+	fprintf(stderr, "%s",_("-l   --longdesc=FILE|TEXT        set long description\n"));
+	fprintf(stderr, "%s",_("-c   --changelog=FILENAME|TEXT   set changelog\n"));
+	fprintf(stderr, "%s",_("-X   --cleartags                 clear all previous tags\n"));
+	fprintf(stderr, "%s",_("-Z   --cleardeps                 clear all previous dependencies\n"));
+	fprintf(stderr, "%s",_("-p   --provides                  set provides value\n"));
+	fprintf(stderr, "%s",_("-P   --clearprovides             clear provides value\n"));
+	fprintf(stderr, "%s",_("-k   --conflicts                 set conflicts value\n"));
+	fprintf(stderr, "%s",_("-K   --clearconflicts            clear conflicts value\n"));
+	fprintf(stderr, "%s",_("-s   --keep-symlinks             keep symlinks in archive instead of moving it to doinst.sh\n"));
+	fprintf(stderr, "%s",_("-f   --config-files=FILENAME     specify filename with list of configuration files and it's options. Replaces existing ones\n"));
+	fprintf(stderr, "%s",_("-F   --clear-config-files        clears list of configuration files\n"));
 
 	return 1;
 }

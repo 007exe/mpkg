@@ -4,21 +4,21 @@
 #include <mpkg/terminal.h>
 #include <mpkg/checklibdeps.h>
 int print_usage() {
-	printf(_("mpkg-checklibdeps: checks binary dependencies using ldd for missing libraries\n"));
-	printf(_("Usage: mpkg-checklibdeps [PKGNAME] [OPTIONS] - checks specified package for errors\n"));
-	printf(_("Running mpkg-checklibdeps without parameters will check whole system.\n"));
-	printf(_("Available options:"));
-	printf(_("\t-h\t--help\tShow this help\n"));
-	printf(_("\t-f\t--fast\tFast mode: skip directories which rarely contains anything that does make sence\n"));
-	printf(_("\t-l\t--filter-lib=LIBRARY\tFilter errors for specified library. Example: -l libgmp.so.1\n"));
-	printf(_("\t-s\t--filter-sym=SYMBOL\tFilter errors for specified symbol. Example: -s PythonUnicode_UCS2_FromLatin1\n"));
-	printf(_("\t-c\t--compact\tCompact mode: makes output more machine-readable\n"));
-	printf(_("\t-R\t--rebuild\tRequest rebuild for packages with errors\n"));
-	printf(_("\t-d\t--interactive\tInteractive mode for rebuild: you can choose which packages to rebuild\n"));
-	printf(_("\t-r\t--resolve\tCheck symbols for resolving. NOTE: errors may be false positive in case of runtime linking\n"));
-	printf(_("\t-v\t--verbose\tVerbose mode: shows names of missing libs and symbols\n"));
-	printf(_("\t-V\t--very-verbose\tVery verbose mode: shows maximum details\n"));
-	printf(_("\t-C\t--recheck\tCheck only packages that produced errors in previous run\n"));
+	printf("%s",_("mpkg-checklibdeps: checks binary dependencies using ldd for missing libraries\n"));
+	printf("%s",_("Usage: mpkg-checklibdeps [PKGNAME] [OPTIONS] - checks specified package for errors\n"));
+	printf("%s",_("Running mpkg-checklibdeps without parameters will check whole system.\n"));
+	printf("%s",_("Available options:"));
+	printf("%s",_("\t-h\t--help\tShow this help\n"));
+	printf("%s",_("\t-f\t--fast\tFast mode: skip directories which rarely contains anything that does make sence\n"));
+	printf("%s",_("\t-l\t--filter-lib=LIBRARY\tFilter errors for specified library. Example: -l libgmp.so.1\n"));
+	printf("%s",_("\t-s\t--filter-sym=SYMBOL\tFilter errors for specified symbol. Example: -s PythonUnicode_UCS2_FromLatin1\n"));
+	printf("%s",_("\t-c\t--compact\tCompact mode: makes output more machine-readable\n"));
+	printf("%s",_("\t-R\t--rebuild\tRequest rebuild for packages with errors\n"));
+	printf("%s",_("\t-d\t--interactive\tInteractive mode for rebuild: you can choose which packages to rebuild\n"));
+	printf("%s",_("\t-r\t--resolve\tCheck symbols for resolving. NOTE: errors may be false positive in case of runtime linking\n"));
+	printf("%s",_("\t-v\t--verbose\tVerbose mode: shows names of missing libs and symbols\n"));
+	printf("%s",_("\t-V\t--very-verbose\tVery verbose mode: shows maximum details\n"));
+	printf("%s",_("\t-C\t--recheck\tCheck only packages that produced errors in previous run\n"));
 	return 0;
 }
 
@@ -137,7 +137,7 @@ int main(int argc, char **argv) {
 			sqlSearch.addField("package_name", cutSpaces(lastChecked[i]));
 		}
 		if (sqlSearch.empty()) {
-			fprintf(stderr, _("Nothing to recheck, running full check instead"));
+			fprintf(stderr, "%s",_("Nothing to recheck, running full check instead"));
 		}
 	}
 	else {
@@ -194,7 +194,7 @@ int main(int argc, char **argv) {
 			//errorList.push_back(tmpErrList);
 		}
 		if (verbose_level>1) {
-			if (!compact) printf(_("\tDetails:\n"));
+			if (!compact) printf("%s",_("\tDetails:\n"));
 			for (size_t t=0; t<res.symbolErrors.size(); ++t) {
 				cout << "\t\tUNRESOLVED: " << res.symbolErrors[t].symbol << " (" << res.symbolErrors[t].filename << ")" << endl;
 			}

@@ -3,12 +3,12 @@
 #include <mpkg/libmpkg.h>
 
 int print_usage() {
-	printf(_("mpkg-unused: find packages that is not a dependency for any other packages installed in system.\n"));
-	printf(_("Usage: mpkg-unused [TAG]\n"));
-	printf(_("Running mpkg-unused with no argument will check all installed packages.\n"));
-	printf(_("Available options:"));
-	printf(_("\t-h\t--help\tShow this help\n"));
-	printf(_("\t-v\t--verbose\tVerbose mode: shows installed size of each package\n"));
+	printf("%s",_("mpkg-unused: find packages that is not a dependency for any other packages installed in system.\n"));
+	printf("%s",_("Usage: mpkg-unused [TAG]\n"));
+	printf("%s",_("Running mpkg-unused with no argument will check all installed packages.\n"));
+	printf("%s",_("Available options:"));
+	printf("%s",_("\t-h\t--help\tShow this help\n"));
+	printf("%s",_("\t-v\t--verbose\tVerbose mode: shows installed size of each package\n"));
 	return 0;
 
 }

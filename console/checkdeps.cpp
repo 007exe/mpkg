@@ -6,9 +6,9 @@
 int print_usage(int ret = 0) {
 	FILE *fd = stdout;
 	if (ret!=0) fd = stderr;
-	fprintf(fd, _("mpkg-checkdeps: checks dependency tree integrity within specified repositories. Used to find out unresolvable dependencies\n"));
-	fprintf(fd, _("USAGE: mpkg-checkdeps REPOSITORY_URL [REPOSITORY_URL] [...]\n"));
-	fprintf(fd, _("\nNote: Due to internal limitations, currently mpkg-checkdeps can check only repositores that match system architecture. For example, you cannot check x86_64 repository from i686 system\n"));
+	fprintf(fd, "%s",_("mpkg-checkdeps: checks dependency tree integrity within specified repositories. Used to find out unresolvable dependencies\n"));
+	fprintf(fd, "%s",_("USAGE: mpkg-checkdeps REPOSITORY_URL [REPOSITORY_URL] [...]\n"));
+	fprintf(fd, "%s",_("\nNote: Due to internal limitations, currently mpkg-checkdeps can check only repositores that match system architecture. For example, you cannot check x86_64 repository from i686 system\n"));
 	return ret;
 }
 

@@ -315,8 +315,8 @@ int main (int argc, char **argv)
 		if (argc-optind==1) core.build_package((string) argv[optind],false);
 		if (argc-optind==0) core.build_package((string) "", false);
 		if (argc-optind>2) {
-			fprintf(stderr,_("Too many arguments\n"));
-			fprintf(stderr,_("Usage: buildpkg [output_directory]\n"));
+			fprintf(stderr, "%s",_("Too many arguments\n"));
+			fprintf(stderr, "%s",_("Usage: buildpkg [output_directory]\n"));
 			return -1;
 		}
 	    	return 0;
@@ -326,8 +326,8 @@ int main (int argc, char **argv)
 		if (argc==2) core.build_package((string) argv[1],true);
 		if (argc==1) core.build_package((string) "", true);
 		if (argc>2) {
-			fprintf(stderr,_("Too many arguments\n"));
-			fprintf(stderr,_("Usage: buildsrcpkg [output_directory]\n"));
+			fprintf(stderr, "%s",_("Too many arguments\n"));
+			fprintf(stderr, "%s",_("Usage: buildsrcpkg [output_directory]\n"));
 			return -1;
 		}
 	    	return 0;
@@ -514,7 +514,7 @@ int main (int argc, char **argv)
 
 	if (action == ACT_BUILD)
 	{
-		fprintf(stderr, _("mpkg-build has been deprecated many time ago, and it's support was dropped. Please convert your SPKG files to ABUILD using mpkg-spkg2abuild."));
+		fprintf(stderr, "%s",_("mpkg-build has been deprecated many time ago, and it's support was dropped. Please convert your SPKG files to ABUILD using mpkg-spkg2abuild."));
 		return 1;
 	}
 
@@ -756,7 +756,7 @@ int main (int argc, char **argv)
 	{
 		if (!repair_damaged) _cmdOptions["sql_readonly"]="yes";
 		else lockDatabase();
-		say(_("Retrieving package data, it may take a while...\n"));
+		say("%s",_("Retrieving package data, it may take a while...\n"));
 		PACKAGE_LIST repairList;
 		PACKAGE_LIST checkList;
 		SQLRecord sqlSearch;
@@ -764,7 +764,7 @@ int main (int argc, char **argv)
 		//printf("SLOW GET_PACKAGELIST CALL: %s %d\n", __func__, __LINE__);
 		core.get_packagelist(sqlSearch, &checkList);
 		if (optind>=argc) core.db->get_full_filelist(&checkList);
-		say(_("checking...\n"));
+		say("%s",_("checking...\n"));
 		string pkgname;
 		if (optind>=argc) {
 			// Check entire system
@@ -803,7 +803,7 @@ int main (int argc, char **argv)
 		}
 		if (repairList.size()>0)
 		{
-			say(_("\n\n----------Repairing damaged packages----------\n"));
+			say("%s",_("\n\n----------Repairing damaged packages----------\n"));
 			core.commit(enqueueOnly);
 		}
 
@@ -1214,7 +1214,7 @@ int main (int argc, char **argv)
 
 int list_rep(mpkg *core)
 {
-	say(_("Repository list:\n"));
+	say("%s",_("Repository list:\n"));
 	vector <string> rlist=core->get_repositorylist();
 	vector<string> dlist = core->get_disabled_repositorylist();
 	for (unsigned int i=0; i<rlist.size(); i++)

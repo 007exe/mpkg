@@ -3,13 +3,13 @@
 #include <mpkg/libmpkg.h>
 
 int print_usage() {
-	printf(_("mpkg-checkconfigs: checks all .new files if they are properly renamed and exists\n"));
-	printf(_("Usage: mpkg-checkconfigs [PKGNAME] [OPTIONS] - checks specified package for errors\n"));
-	printf(_("Running mpkg-checkconfigs without specifying package name will check whole system.\n"));
-	printf(_("Available options:"));
-	printf(_("\t-h\t--help\tShow this help\n"));
-	printf(_("\t-r\t--repair\tRepair errors. Default action is to rename .new to original\n"));
-	printf(_("\t-c\t--copy\tSame as previous, but Instead of moving, do copying\n"));
+	printf("%s",_("mpkg-checkconfigs: checks all .new files if they are properly renamed and exists\n"));
+	printf("%s",_("Usage: mpkg-checkconfigs [PKGNAME] [OPTIONS] - checks specified package for errors\n"));
+	printf("%s",_("Running mpkg-checkconfigs without specifying package name will check whole system.\n"));
+	printf("%s",_("Available options:"));
+	printf("%s",_("\t-h\t--help\tShow this help\n"));
+	printf("%s",_("\t-r\t--repair\tRepair errors. Default action is to rename .new to original\n"));
+	printf("%s",_("\t-c\t--copy\tSame as previous, but Instead of moving, do copying\n"));
 	return 0;
 
 }

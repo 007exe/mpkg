@@ -40,7 +40,7 @@ int findConflicts(int package_id, string package_name, string package_md5 ) {
 	int fConflict_package_id = conflictResults.getFieldIndex("conflicted_package_id");
 	string over_name;
 	if (conflictResults.size()>0) fprintf(stderr, _("Package %s overwrites these files:\n"), package_name.c_str());
-	else fprintf(stderr, _("Package didn't overwrite any other's files.\n"));
+	else fprintf(stderr, "%s",_("Package didn't overwrite any other's files.\n"));
 	for (size_t i=0; i<conflictResults.size(); ++i) {
 		over_name = conflictResults.getValue(i, fConflict_backup_file);
 		over_name = over_name.substr(0, over_name.find_first_of("/"));
@@ -57,7 +57,7 @@ int findConflicts(int package_id, string package_name, string package_md5 ) {
 	core.db->get_sql_vtable(revConflictResults, conflictFields, "conflicts", revConflictSearch);
 
 	if (revConflictResults.getRecordCount()>0) {
-		fprintf(stderr, _("\nOverwritten by others: \n"));
+		fprintf(stderr, "%s",_("\nOverwritten by others: \n"));
 	}
 	else return 0;
 
@@ -86,7 +86,7 @@ int main(int argc, char **argv) {
 	bindtextdomain( "mpkg", "/usr/share/locale");
 	textdomain("mpkg");
 	if (argc<2) {
-		fprintf(stderr, _("Package name not specified"));
+		fprintf(stderr, "%s",_("Package name not specified"));
 		return 1;
 	}
 	string package_name = argv[1];

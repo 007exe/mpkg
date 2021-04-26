@@ -2,8 +2,8 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 #include <mpkg/libmpkg.h>
 int print_usage() {
-	fprintf(stderr, _("MPKG Package System: set repository profile\n"));
-	fprintf(stderr, _("Usage: mpkg-setprofile PROFILE_NAME\n"));
+	fprintf(stderr, "%s",_("MPKG Package System: set repository profile\n"));
+	fprintf(stderr, "%s",_("Usage: mpkg-setprofile PROFILE_NAME\n"));
 	return 1;
 }
 int main(int argc, char **argv) {

@@ -12,7 +12,7 @@ string decodeStatus(string status) {
 	return "UNKNOWN";
 }
 int print_usage() {
-	fprintf(stderr, _("mpkg-rollback: rolls back installed package set to specified state.\nUsage: \n\tmpkg-rollback [OPTIONS] TRANSACTION_ID\tRolls back up to specified transaction. All transactions with ID equal or greater than specified TRANSACTION_ID will be reverted.\n\nAvailable options:\n\t-v\t--verbose\tVerbose info\n"));
+	fprintf(stderr, "%s",_("mpkg-rollback: rolls back installed package set to specified state.\nUsage: \n\tmpkg-rollback [OPTIONS] TRANSACTION_ID\tRolls back up to specified transaction. All transactions with ID equal or greater than specified TRANSACTION_ID will be reverted.\n\nAvailable options:\n\t-v\t--verbose\tVerbose info\n"));
 	return 1;
 }
 
@@ -45,7 +45,7 @@ int main(int argc, char **argv) {
 		return 1;
 	}
 
-	printf(_("Gathering data\n"));
+	printf("%s",_("Gathering data\n"));
 	SQLRecord sqlSearch;
 	SQLTable transactions;
 	SQLTable transaction_details;
@@ -59,7 +59,7 @@ int main(int argc, char **argv) {
 	PACKAGE_LIST pkgListModified;
 	core.get_packagelist(sqlSearch, &pkgListModified);
 
-	printf(_("Searching for transactions\n"));
+	printf("%s",_("Searching for transactions\n"));
 	
 	int fTr_id=0;
 	//int fTr_date_start=1;
