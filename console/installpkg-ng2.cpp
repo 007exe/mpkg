@@ -600,6 +600,7 @@ int main (int argc, char **argv)
 		if (ret!=0) {
 			if (!enqueueOnly) core.clean_queue();
 			delete_tmp_files();
+			unlockDatabase();
 			return ret;
 		}
 		ret = core.commit(enqueueOnly);
@@ -807,7 +808,8 @@ int main (int argc, char **argv)
 			core.commit(enqueueOnly);
 		}
 
-		if (repair_damaged) unlockDatabase();
+//		if (repair_damaged) unlockDatabase(); //Fix V1020. Не понятная запись, переменная repair_damaged имеет значение false и по коду не меняется тесть условие никогда не выполнимо
+		unlockDatabase();
 		return 0;
 	}
 	
