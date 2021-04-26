@@ -136,7 +136,7 @@ PackageConfig::PackageConfig(xmlNodePtr __rootXmlNodePtr)
 	parseOk = true;
 	//curNode = __rootXmlNodePtr;
 	//curNode = xmlNewNode;
-	*curNode=*__rootXmlNodePtr;
+	//*curNode=*__rootXmlNodePtr;
 	this->doc=NULL;
 	if (this->doc == NULL) {
 		this->doc = xmlNewDoc((const xmlChar *)"1.0");
