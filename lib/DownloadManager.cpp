@@ -19,7 +19,8 @@ DownloadResults CommonGetFile(std::string url, std::string output)//, void *call
 	mDebug("load file " + url + " to " + output);
 
 	
-	DownloadResults ret = g_pCurrentMethod->getFile(url, output); 
+	DownloadResults ret = g_pCurrentMethod->getFile(url, output);
+	delete g_pCurrentMethod;
 	return ret;
 }	
 
@@ -27,8 +28,7 @@ DownloadResults CommonGetFileEx(DownloadsList &list, std::string *itemname)//, A
 {
 	HttpDownload *g_pCurrentMethod = new HttpDownload;// InitializeDownloadObjects(g_pDownloadFactory);
 	assert( g_pCurrentMethod );
-	DownloadResults ret = g_pCurrentMethod->getFile(list, itemname); 
+	DownloadResults ret = g_pCurrentMethod->getFile(list, itemname);
+	delete g_pCurrentMethod;
 	return ret;
 }	
-
-

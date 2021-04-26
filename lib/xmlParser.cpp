@@ -406,8 +406,10 @@ XMLError XMLNode::writeToFile(XMLCSTR filename, const char *encoding, char nForm
     if (!fwrite(h,2,1,f)) return eXMLErrorCannotWriteFile;
     if (!isDeclaration())
     {
-        if (!fwrite(_T("<?xml version=\"1.0\" encoding=\"utf-16\"?>\n"),sizeof(wchar_t)*40,1,f))
+        if (!fwrite(_T("<?xml version=\"1.0\" encoding=\"utf-16\"?>\n"),sizeof(wchar_t)*40,1,f)){
+            delete f;
             return eXMLErrorCannotWriteFile;
+        }
     }
 #else
     if (!isDeclaration())
@@ -416,8 +418,14 @@ XMLError XMLNode::writeToFile(XMLCSTR filename, const char *encoding, char nForm
         {
             // header so that windows recognize the file as UTF-8:
             unsigned char h[3]={0xEF,0xBB,0xBF};
-            if (!fwrite(h,3,1,f)) return eXMLErrorCannotWriteFile;
-            if (!fwrite("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n",39,1,f)) return eXMLErrorCannotWriteFile;
+            if (!fwrite(h,3,1,f)){
+                delete f;
+                return eXMLErrorCannotWriteFile;
+            }
+            if (!fwrite("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n",39,1,f)){
+                delete f;
+                return eXMLErrorCannotWriteFile;
+            }
         }
         else
             if (fprintf(f,"<?xml version=\"1.0\" encoding=\"%s\"?>\n",encoding)<0) return eXMLErrorCannotWriteFile;

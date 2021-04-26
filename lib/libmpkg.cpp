@@ -904,6 +904,7 @@ void generateDeps_new(mpkg &core, string tgz_filename) {
 		lp = new LocalPackage(tgz_filename);
 		if (!lp->isNative()) {
 			mError(_("Cannot work with legacy packages, convert it first using mpkg-convert or mpkg-setmeta"));
+			delete lp;
 			return;
 		}
 		lp->injectFile();
