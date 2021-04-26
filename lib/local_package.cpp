@@ -558,7 +558,7 @@ int LocalPackage::set_additional_data()
 
 int LocalPackage::injectFile()
 {
-	if (!dialogMode && verbose) say(string(_("Injecting file") + filename + "\n").c_str());
+	if (!dialogMode && verbose) say("%s", string(_("Injecting file") + filename + "\n").c_str());
 
 	internal=true;
 	// Injecting data from file!

@@ -359,7 +359,7 @@ int SQLiteDB::init()
 		// Try to open database until it can be opened. 
 		ret = sqlite3_open_v2(db_filename.c_str(), &db, SQLITE_OPEN_READWRITE | SQLITE_OPEN_CREATE, NULL);
 		if (ret==SQLITE_BUSY || ret==SQLITE_LOCKED) {
-			if (!dialogMode) fprintf(stderr, _("Database is locked by another process, waiting for release...\nYou can press CTRL-C to break waiting and exit\n"));
+			if (!dialogMode) fprintf(stderr, "%s", _("Database is locked by another process, waiting for release...\nYou can press CTRL-C to break waiting and exit\n"));
 			else ncInterface.showInfoBox(_("Database is locked, waiting for release...\nYou can press CTRL-C to break waiting and exit\n"));
 			sleep(1);
 		}

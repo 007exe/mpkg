@@ -469,7 +469,7 @@ string SourcePackage::getSourceDirectory()
 	}
 	if (candidates.size()==1) return candidates[0];
 	else {
-		say(_("Cannot determine which directory to use. Seems that you have a package without a subfolder\nCandidates are: \n"));
+		say("%s", _("Cannot determine which directory to use. Seems that you have a package without a subfolder\nCandidates are: \n"));
 		for (unsigned int i=0; i<candidates.size(); i++) {
 			say("  %s\n", candidates[i].c_str());
 		}

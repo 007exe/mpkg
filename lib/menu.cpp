@@ -244,7 +244,7 @@ void actUpgrade(mpkg &core, int action) {
 				else {
 					uList = resultList;
 					fprintf(stderr, string("\r" + string(_("Found ")) + IntToStr(resultList.size()) + _(" updates\n")).c_str());
-					fprintf(stderr, _("Total: %s to download\n"), humanizeSize(totalSizeC).c_str());
+					fprintf(stderr,_("Total: %s to download\n"), humanizeSize(totalSizeC).c_str());
 
 				}
 				core.install(&uList);
@@ -253,7 +253,7 @@ void actUpgrade(mpkg &core, int action) {
 			}
 			if (action==ACT_LISTUPGRADE) {
 				if (!dialogMode) {
-					fprintf(stderr, _("Available updates:\n"));
+					fprintf(stderr, "%s", _("Available updates:\n"));
 					fprintf(stderr, "\n");
 					for (unsigned int i=0; i<resultList.size(); i++) {
 						if (_cmdOptions["machine_mode"]=="yes") {
@@ -276,7 +276,7 @@ void actUpgrade(mpkg &core, int action) {
 					}	
 
 					fprintf(stderr, "\n");
-					fprintf(stderr, string("\r" + string(_("Found ")) + IntToStr(resultList.size()) + _(" updates\n")).c_str());
+					fprintf(stderr, "%s", string("\r" + string(_("Found ")) + IntToStr(resultList.size()) + _(" updates\n")).c_str());
 					fprintf(stderr, _("Total: %s to download\n"), humanizeSize(totalSizeC).c_str());
 				}
 				else {
@@ -285,7 +285,7 @@ void actUpgrade(mpkg &core, int action) {
 			}
 		}
 		else {
-			if (!dialogMode) fprintf(stderr, _("No updates available\n"));
+			if (!dialogMode) fprintf(stderr, "%s", _("No updates available\n"));
 			else ncInterface.showMsgBox(_("No updates available\n"));
 		}
 		//return 0;
@@ -346,7 +346,7 @@ void list(mpkg *core, const vector<string>& search, const bool showOnlyAvailable
 		sqlSearch.addField("package_action", ST_REPAIR);
 		sqlSearch.addField("package_action", ST_UPDATE);
 	}
-	if (!dialogMode) say(_("Querying database...\n"));
+	if (!dialogMode) say("%s", _("Querying database...\n"));
 	else ncInterface.showInfoBox(_("Querying database...\n"));
 	
 	core->db->sql_exec("PRAGMA case_sensitive_like = false;");
@@ -354,7 +354,7 @@ void list(mpkg *core, const vector<string>& search, const bool showOnlyAvailable
 	core->db->sql_exec("PRAGMA case_sensitive_like = true;");
 	if (pkglist.IsEmpty())
 	{
-		if (!dialogMode) say(_("Search attempt has no results\n"));
+		if (!dialogMode) say("%s", _("Search attempt has no results\n"));
 		else ncInterface.showMsgBox(_("Search attempt has no results\n"));
 
 		return;
@@ -726,13 +726,13 @@ void showPackageFilelist(PACKAGE *pkg) {
 	if (pkg->installed()) {
 		if (pkg->get_files().size()==0)
 		{
-			say(_("\tPackage contains no files\n"));
+			say("%s", _("\tPackage contains no files\n"));
 		}
 		else for (size_t t=0; t<pkg->get_files().size(); ++t) {
 			say ("\t    %s\n", pkg->get_files().at(t).c_str());
 		}
 	}
-	else say (_("\tPackage is not installed\n"));
+	else say ("%s", _("\tPackage is not installed\n"));
 }
 
 void showPackageInfoDialog(const PACKAGE *pkg, const string &hasUpdate) {
@@ -863,7 +863,7 @@ void searchByFile(mpkg *core, string filename, bool strict)
 	ncInterface.setSubtitle(_("Searching for file ") + filename);
 	string filename_orig=filename;
 	if (filename.length()==0) {
-		say(_("No filename specified\n"));
+		say("%s", _("No filename specified\n"));
 		return;
 	}
 

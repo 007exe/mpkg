@@ -361,7 +361,7 @@ int mpkg::remove_repository(int repository_num)
 	{
 		repository_num = repository_num - enabledRepositories.size();
 		if (repository_num>=(int) disabledRepositories.size()) {
-			say(_("No such repository\n"));
+			say("%s", _("No such repository\n"));
 			return -1;
 		}
 		for (unsigned int i=0; i<disabledRepositories.size(); i++)
@@ -540,14 +540,14 @@ int mpkg::commit(bool deferred)
 		}
 		int ret = db->commit_actions();
 		if (ret==0) {
-			if (!dialogMode) say(_("Completed successfully\n"));
+			if (!dialogMode) say("%s", _("Completed successfully\n"));
 		}
 		else 
 		{
 			switch (ret)
 			{
 				case MPKGERROR_ABORTED: 
-					if (!dialogMode) say (_("Aborted\n"));
+					if (!dialogMode) say ("%s", _("Aborted\n"));
 					break;
 				case MPKGERROR_COMMITERROR:
 				default:
@@ -1431,7 +1431,7 @@ int mpkg::syncronize_repositories(string sync_map) {
 		}
 
 		if (tmpQuery.empty()) {
-			printf(_("Repository are up to date\n"));
+			printf("%s", _("Repository are up to date\n"));
 		}
 		else {
 			if (verbose && !dialogMode) {
@@ -1451,7 +1451,7 @@ int mpkg::syncronize_repositories(string sync_map) {
 					input=cin.get();
 					if (input=="n" || input=="N" || input == "no") return MPKGERROR_ABORTED;
 					if (input!="y" && input!="Y" && input!="yes" && input!="\n") {
-						say(_("Please answer Y (yes) or N (no)\n"));
+						say("%s", _("Please answer Y (yes) or N (no)\n"));
 						cin.get();
 					}
 					cnt++;
@@ -1565,7 +1565,7 @@ int mpkg::syncronize_repositories(string sync_map) {
 
 	}
 	if (deprecateOld && !deleteDeprecated && !deprecatedDir.empty() && forceRebuild) {
-		say(_("Building index for deprecated directory\n"));
+		say("%s", _("Building index for deprecated directory\n"));
 		rep.build_index(deprecatedDir);
 	}
 
@@ -1590,7 +1590,7 @@ void mpkg::get_queue(PACKAGE_LIST *pkgList, int filter) {
 vector<string> mpkg::getLatestUpdates(PACKAGE_LIST *pkgList, PACKAGE_LIST *uninstList, bool fast, bool needDescriptions) {
 	// Yet another new algorithm
 	if (dialogMode) ncInterface.showInfoBox(_("Searching for updates..."));
-	else fprintf(stderr, _("Searching for updates...\n"));
+	else fprintf(stderr, "%s", _("Searching for updates...\n"));
 	vector<string> errorList;
 	//vector<MenuItem> menuItems; // Vector for update list
 	// Creating DB cache

@@ -77,13 +77,13 @@ bool tryGetDelta(PACKAGE *p, const string workingDir) {
 			// Check md5 of result
 			got_md5 = get_file_md5(workingDir + p->get_filename());
 			if (got_md5 == p->get_md5()) {
-				if (!dialogMode) say(_("Merged file MD5 OK\n"));
+				if (!dialogMode) say("%s", _("Merged file MD5 OK\n"));
 			}
 			else {
-				if (!dialogMode) say(_("Merge OK, but got wrong MD5!\n"));
+				if (!dialogMode) say("%s", _("Merge OK, but got wrong MD5!\n"));
 				return false;
 			}
-			if (!dialogMode) say(_("Delta patch successfully merged in %s\n"), p->get_filename().c_str());
+			if (!dialogMode) say("%s", _("Delta patch successfully merged in %s\n"), p->get_filename().c_str());
 			// Deleting delta file, because we don't need it anymore:
 			unlink(string(workingDir + getFilename(p->deltaSources[i].dup_url)).c_str());
 			return true;

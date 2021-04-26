@@ -139,7 +139,7 @@ int slackpackages2list (string *p, string *m, PACKAGE_LIST *pkgList, string serv
 			if (c->find("PACKAGE SIZE (compressed):  ")==0) {
 				tmp = c->substr(c->find("PACKAGE SIZE (compressed):  ") + strlen("PACKAGE SIZE (compressed):  "));
 				if (tmp.find(" K")==std::string::npos) {
-					printf(_("Malformed metadata: compressed size unreadable\n"));
+					printf("%s", _("Malformed metadata: compressed size unreadable\n"));
 					bad_package = true;
 					break;
 				}
@@ -151,7 +151,7 @@ int slackpackages2list (string *p, string *m, PACKAGE_LIST *pkgList, string serv
 			if (c->find("PACKAGE SIZE (uncompressed):  ")==0) {
 				tmp = c->substr(c->find("PACKAGE SIZE (uncompressed):  ") + strlen("PACKAGE SIZE (uncompressed):  "));
 				if (tmp.find(" K")==std::string::npos) {
-					printf(_("Malformed metadata: uncompressed size unreadable\n"));
+					printf("%s", _("Malformed metadata: uncompressed size unreadable\n"));
 					bad_package = true;
 					break;
 				}
@@ -623,7 +623,7 @@ int Repository::build_index(string path, bool make_filelist)
 	WriteFileStrings("package_list", pkgDupeNames);
 	// Compress file
 	//mDebug("Compressing files");
-	if (!dialogMode) say(_("Compressing files\n"));
+	if (!dialogMode) say("%s", _("Compressing files\n"));
 	if (system("gzip -f " + path+"/packages.xml")==0) {
 		system("zcat " + path + "/packages.xml.gz | xz -e > " + path + "/packages.xml.xz");
 	       if (!dialogMode) say(_("\n-------------SUMMARY------------------\nTotal: %d packages\n\nRepository index created successfully\n"),pkgcounter);

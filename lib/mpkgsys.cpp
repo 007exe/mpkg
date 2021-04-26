@@ -15,7 +15,7 @@ string output_dir;
 int mpkgSys::clean_cache(bool symlinks_only)
 {
 	if (!dialogMode) {
-		if (!symlinks_only) say(_("Cleaning package cache\n"));
+		if (!symlinks_only) say("%s", _("Cleaning package cache\n"));
 		//else say(_("Cleaning orphaned symlinks in cache\n"));
 	}
 	if (!symlinks_only) ftw(SYS_CACHE.c_str(), _clean, 50);
@@ -80,7 +80,7 @@ int mpkgSys::build_package(string out_directory, bool source)
 			say(_("Packing binary package to %s%s.%s\n"), out_directory.c_str(), pkgname.c_str(), pkgType.c_str());
 			string tmp_dir = get_tmp_dir();
 			system(MAKEPKG_CMD + " " + tmp_dir + "/" + pkgname+"."+pkgType);
-			say(_("Moving package to output directory...\n"));
+			say("%s", _("Moving package to output directory...\n"));
 			system("mv " + tmp_dir + "/" + pkgname+"."+pkgType + " " + out_directory);
 		}
 	}
@@ -218,7 +218,7 @@ int mpkgSys::update_repository_data(mpkgDatabase *db)//, DependencyTracker *DepT
 
 	// Now - update package descriptions
 	updatePackageDescriptions(package_descriptions);
-	if (!dialogMode) say(_("Update complete.\n"));
+	if (!dialogMode) say("%s", _("Update complete.\n"));
 	pData.clear();
 	return ret;
 }

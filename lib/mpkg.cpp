@@ -505,7 +505,7 @@ int mpkgDatabase::commit_actions()
 			if (interactive_mode && !dialogMode && !getlinksOnly)
 			{
 				say("\n");
-				say(_("Continue? [Y/n]\n"));
+				say("%s", _("Continue? [Y/n]\n"));
 				string input;
 				bool skipBad;
 				while (input!="y" && input!="Y" && input!="yes" && input!="\n") {
@@ -518,7 +518,7 @@ int mpkgDatabase::commit_actions()
 					if (skipBad) continue;
 					if (input=="n" || input=="N" || input == "no") return MPKGERROR_ABORTED;
 					if (input!="y" && input!="Y" && input!="yes" && input!="\n") {
-						say(_("Please answer Y (yes) or N (no)\n"));
+						say("%s", _("Please answer Y (yes) or N (no)\n"));
 						cin.get();
 					}
 				}
@@ -529,7 +529,7 @@ int mpkgDatabase::commit_actions()
 		}
 		else 
 		{
-			if (!dialogMode) say (_("Nothing to do\n"));
+			if (!dialogMode) say ("%s", _("Nothing to do\n"));
 			else ncInterface.showMsgBox(_("Nothing to do\n"));
 			return 0;
 		}
@@ -692,15 +692,15 @@ download_process:
 				switch(errRet)
 				{
 					case MPKG_RETURN_IGNORE:
-						say(_("Wrong checksum ignored, continuing...\n"));
+						say("%s", _("Wrong checksum ignored, continuing...\n"));
 						break;
 					case MPKG_RETURN_RETRY:
-						say(_("Re-downloading...\n")); // TODO: HEAVY CHECK!!!!
+						say("%s", _("Re-downloading...\n")); // TODO: HEAVY CHECK!!!!
 						do_download = true;
 						goto download_process;
 						break;
 					case MPKG_RETURN_ABORT:
-						say(_("Aborting installation\n"));
+						say("%s", _("Aborting installation\n"));
 						return MPKGERROR_ABORTED;
 						break;
 					default:
@@ -971,7 +971,7 @@ int mpkgDatabase::install_package(PACKAGE* package, size_t packageNum, size_t pa
 			mError("Error copying package, aborting...");
 			return MPKG_INSTALL_META_ERROR;
 		}
-		say(_("Importing to database\n"));
+		say("%s", _("Importing to database\n"));
 		LocalPackage binpkg(SYS_CACHE + getFilename(binary_out));
 		if (binpkg.injectFile()!=0) {
 			mError("Error injecting binary package, cannot continue");
@@ -983,7 +983,7 @@ int mpkgDatabase::install_package(PACKAGE* package, size_t packageNum, size_t pa
 		binary_package.itemID = package->itemID;
 		// Now replace record in install_list:
 		*package = binary_package;
-		say(_("Processing to install binary\n"));
+		say("%s", _("Processing to install binary\n"));
 		return install_package(package, packageNum, packagesTotal, transaction_id);
 	}
 
@@ -1901,9 +1901,9 @@ void HookManager::runHooks() {
 			pkgUpdatedStr = pkgUpdatedStr + pkgInstalled[i];
 		}
 	}
-	printf(_("Executing post-install hooks...\n"));
+	printf("%s", _("Executing post-install hooks...\n"));
 	system("( cd " + SYS_ROOT + " ; for i in `find etc/mpkg/hooks -name '*.sh' -type f -perm 755` ; do echo " + string(_("Starting")) + " /$i ; PKG_INSTALLED='" + pkgInstalledStr + "' PKG_REMOVED='" + pkgRemovedStr + "' PKG_UPDATED='" + pkgUpdatedStr + "' $i ; echo /$i " + string(_("finished")) + " ; done )");
-	printf(_("Post-install hooks completed\n"));
+	printf("%s", _("Post-install hooks completed\n"));
 
 
 }

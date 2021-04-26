@@ -69,7 +69,7 @@ int emerge_package(string file_url, string *package_name, string march, string m
 		olevel = p.getBuildOptimizationLevel();
 	}
 	else {
-		printf(_("Customizable config, checking....\n"));
+		printf("%s", _("Customizable config, checking....\n"));
 		// 1. Command line
 		// 2. System config
 		// 3. Package data
@@ -157,7 +157,7 @@ int emerge_package(string file_url, string *package_name, string march, string m
 	// Print the URL list
 	say(_("Main source url: [%s]\n"), url.c_str());
 	for (unsigned int i=0; i<urlMap.size(); i++) {
-		if (i==0) say(_("Advanced URL list:\n"));
+		if (i==0) say("%s", _("Advanced URL list:\n"));
 		say("%s\n", urlMap.getKeyName(i).c_str());
 	}
 
@@ -372,7 +372,7 @@ int emerge_package(string file_url, string *package_name, string march, string m
 
 	printf("Detected srcdir: %s\n", srcdir.c_str());
 	if (srcdir.empty() || srcdir.find("/tmp/mpkg-")!=0) {
-		printf(_("Failed to detect source directory, cannot continue\n"));
+		printf("%s", _("Failed to detect source directory, cannot continue\n"));
 		return -10;
 	}
 
@@ -513,7 +513,7 @@ int emerge_package(string file_url, string *package_name, string march, string m
 	//printf("\n\n\n\n\nconfigure_cmd = [%s]\n\n\n\n\n\n", configure_cmd.c_str());
 
 	// Fixing permissions (mozgmertv resistance)
-	say(_("\nChecking and fixing permissions...\n"));
+	say("%s", _("\nChecking and fixing permissions...\n"));
 	system("(cd " + srcdir+" || exit 1 ; chown -R root:root .;	find . -perm 666 -exec chmod 644 {} \\;; find . -perm 664 -exec chmod 644 {} \\;; find . -perm 600 -exec chmod 644 {} \\;; find . -perm 444 -exec chmod 644 {} \\;; find . -perm 400 -exec chmod 644 {} \\;; find . -perm 440 -exec chmod 644 {} \\;; find . -perm 777 -exec chmod 755 {} \\;; find . -perm 775 -exec chmod 755 {} \\;; find . -perm 511 -exec chmod 755 {} \\;; find . -perm 711 -exec chmod 755 {} \\;; find . -perm 555 -exec chmod 755 {} \\;)");
 	
 

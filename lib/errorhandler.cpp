@@ -34,7 +34,7 @@ MpkgErrorReturn genericConsoleErrorHandler(ErrorDescription e, const string& err
 				say(_("You decided to %s\n"), e.action[ret-1].text.c_str());
 				return e.action[ret-1].ret;
 			}
-			say(_("Invalid input\n"));
+			say("%s", _("Invalid input\n"));
 		}
 		return MPKG_RETURN_ABORT;
 	}
