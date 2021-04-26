@@ -12,7 +12,7 @@ int showCmdHelp(const string cmd, bool is_error)
 
 	showBanner();
 
-	fprintf(stream, "%s", _("\nUsage: %s [options] ACTION [package] [package] ...\n"), cmd.c_str());
+	fprintf(stream, _("\nUsage: %s [options] ACTION [package] [package] ...\n"), cmd.c_str());
 	fprintf(stream, "%s", _("Common options:\n"));
 	fprintf(stream, "%s", _("\t-h    --help              show this help\n"));
 	fprintf(stream, "%s", _("\t-v    --verbose           be verbose\n"));
@@ -39,19 +39,19 @@ int showCmdHelp(const string cmd, bool is_error)
 	fprintf(stream, "%s", _("\t-R    --index-filelist    create file list while indexing\n"));
 	fprintf(stream, "%s", _("\t-M    --md5index          add md5 sums for each file in filelist\n"));
 	fprintf(stream, "%s", _("\t-S    --sysroot=<DIR>     set temporary system root\n"));
-	fprintf(stream, "%s", _("\t-t    --conf=CONFIG_FILE  set temporary config file\n"));
-	fprintf(stream, "%s", _("\t-A    --download-to=<DIR> download packages to specified directory\n"));
-	fprintf(stream, "%s", _("\t-W    --enable-spkg-index enable spkg indexing (otherwise, it will be skipped)\n"));
 	fprintf(stream, "%s", _("\t-L    --linksonly         on install/upgradeall, show only download links and exit\n"));
 	fprintf(stream, "%s", _("\t-P    --noaaa             try to avoid aaa_elflibs in dependency generation (for gendeps2)\n"));
 	fprintf(stream, "%s", _("\t-G    --keep-deps         do not replace deps in package, add to them instead (for gendeps2)\n"));
 	fprintf(stream, "%s", _("\t-C    --enable-cache      enable cached indexing\n"));
 	fprintf(stream, "%s", _("\t-K    --skip-deprecated   while sync, skip deprecated packages\n"));
 	fprintf(stream, "%s", _("\t-s    --keep-symlinks     keep symlinks in archive instead of moving it to doinst.sh\n"));
-	fprintf(stream, "%s", _("\t-E    --exclusion-list=FILENAME   Exclude paths from being checked by gendeps2\n"));
 	fprintf(stream, "%s", _("\t-e    --arch=ARCH         temporarily override architecture. Valid options is x86_64 and x86.\n"));
 	fprintf(stream, "%s", _("\t-Y    --resync            forces deep database update (takes longer time, but rebuilds all package metadata)\n"));
 	fprintf(stream, "%s", _("\t-X    --skip=PKG1,PKG2... Skip specified packages in upgradeall or listupdates\n"));
+	fprintf(stream, "%s", _("\t-t    --conf=CONFIG_FILE  set temporary config file\n"));
+	fprintf(stream, "%s", _("\t-A    --download-to=<DIR> download packages to specified directory\n"));
+	fprintf(stream, "%s", _("\t-W    --enable-spkg-index enable spkg indexing (otherwise, it will be skipped)\n"));
+	fprintf(stream, "%s", _("\t-E    --exclusion-list=FILENAME   Exclude paths from being checked by gendeps2\n"));
 
 
 	fprintf(stream, "%s", _("\nAvailable commands:\n"));
@@ -89,9 +89,7 @@ int showCmdHelp(const string cmd, bool is_error)
 	fprintf(stream, "%s", _("\tmpkg-searchdescription PATTERN          search package by description containing PATTERN\n"));
 	fprintf(stream, "%s", _("\tmpkg-clean                              remove all downloaded packages from cache\n"));
 	fprintf(stream, "%s", _("\tmpkg-check [package_name]               checks installed package(s) for missing files. Use -r flag to to repair\n"));
-	fprintf(stream, "%s", _("\tmpkg-checkdeps URL                      checks specified repository if all dependencies can be resolved within same repository"));
-
-
+	fprintf(stream, "%s", _("\tmpkg-checkdeps URL                      checks specified repository if all dependencies can be resolved within same repository\n"));
 	fprintf(stream, "%s", _("\tmpkg-checklibdeps [PACKAGE_NAME]        checks installed package(s) for broken binary dependencies.\n"));
 	fprintf(stream, "%s", _("\tmpkg-altlist			    shows all alternatives in database\n"));
 	fprintf(stream, "%s", _("\tmpkg-altshow PACKAGE_NAME		    shows all alternative branches of specified package\n")); 
@@ -110,9 +108,6 @@ int showCmdHelp(const string cmd, bool is_error)
 	fprintf(stream, "%s", _("\tmpkg-spkg2abuild FILENAME		    converts spkg file to ABUILD tree.\n")); 
 	fprintf(stream, "%s", _("\tmpkg-transactions			    shows all package transactions.\n")); 
 	fprintf(stream, "%s", _("\tmpkg-validate PATH | FILENAME	    validates package integrity and some guidelines.\n")); 
-
-
-
 
 	fprintf(stream, "%s", _("\nInteractive options:\n"));
 	fprintf(stream, "%s", _("\tmpkg-menu                      shows the package selection menu\n"));
