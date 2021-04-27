@@ -1426,7 +1426,7 @@ int mpkgDatabase::get_available(int package_id)
 	sqlSearch.addField("packages_package_id", package_id);
 	db.get_sql_vtable(*sqlTable, sqlFields, "locations", sqlSearch);
 
-	if (sqlTable->empty())
+/*	if (sqlTable->empty())
 	{
 		delete sqlTable;
 		return 0;
@@ -1437,6 +1437,13 @@ int mpkgDatabase::get_available(int package_id)
 		return sqlTable->size();
 		//int ret = atoi(sqlTable->getValue(0, "package_available").c_str());
 	}
+*/
+/*
+
+*/
+	const size_t size = sqlTable->size();
+	delete sqlTable;
+	return size;
 }
 
 int mpkgDatabase::get_purge(const string& package_name)
