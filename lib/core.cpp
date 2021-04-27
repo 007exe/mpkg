@@ -1437,9 +1437,8 @@ int mpkgDatabase::get_available(int package_id)
 		return sqlTable->size();
 		//int ret = atoi(sqlTable->getValue(0, "package_available").c_str());
 	}
-*/
-/*
-
+Фикс от Anton (core.cpp 1437 err V774 The 'sqlTable' pointer was used after the memory was released.)
+Код ниже должен заменить закомментированное условие выше.
 */
 	const size_t size = sqlTable->size();
 	delete sqlTable;
