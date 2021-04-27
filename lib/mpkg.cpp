@@ -373,7 +373,7 @@ int mpkgDatabase::commit_actions()
 				if (install_list[i].get_type()==PKGTYPE_SOURCE || _cmdOptions["abuild_links_only"]=="yes") pkgTypeStr=_("(source)");
 				else pkgTypeStr=_("(binary)");
 				if (!dialogMode) {
-					say("  [%d] %s %s %s %s %s\n", installCount, \
+					say("  [%ld] %s %s %s %s %s\n", installCount, \
 						install_list[i].get_name().c_str(), \
 						install_list[i].get_fullversion().c_str(), branch.c_str(), pkgTypeStr.c_str(), reason.c_str());
 						if (!checkAcceptedArch(install_list.get_package_ptr(i))) mWarning(string(CL_RED) + _("ARCHITECTURE WARNING: ") + string(CL_WHITE) + _("Package ") + install_list[i].get_name() + "-" + install_list[i].get_version() + "-" + install_list[i].get_arch() + "-" + install_list[i].get_build() + _(" has non-native architecture (") + install_list[i].get_arch() + _("), are you sure it is what you wanted?"));
@@ -399,7 +399,7 @@ int mpkgDatabase::commit_actions()
 				removeCount++;
 				if (remove_list[i].isTaggedBy("virtual")) is_virtual = string(" (") + _("virtual package") + string(")");
 				else is_virtual.clear();
-				if (!dialogMode) say("  [%d] %s %s %s %s%s\n", removeCount, \
+				if (!dialogMode) say("  [%ld] %s %s %s %s%s\n", removeCount, \
 						remove_list[i].get_name().c_str(), \
 						remove_list[i].get_fullversion().c_str(), branch.c_str(), reason.c_str(), is_virtual.c_str());
 				else dialogMsg += "  [" + IntToStr(removeCount) + "] " + remove_list[i].get_name() + " " + remove_list[i].get_fullversion() + branch + is_virtual + "\n";
@@ -422,7 +422,7 @@ int mpkgDatabase::commit_actions()
 				else is_virtual.clear();
 
 				purgeCount++;
-				if (!dialogMode) say("  [%d] %s %s %s %s%s\n", purgeCount, \
+				if (!dialogMode) say("  [%ld] %s %s %s %s%s\n", purgeCount, \
 						remove_list[i].get_name().c_str(), \
 						remove_list[i].get_fullversion().c_str(), branch.c_str(), reason.c_str(), is_virtual.c_str());
 				else dialogMsg += "  [" + IntToStr(purgeCount) + "] " + remove_list[i].get_name() + " " + remove_list[i].get_fullversion() + branch + is_virtual + "\n";
@@ -443,7 +443,7 @@ int mpkgDatabase::commit_actions()
 				}
 				updateCount++;
 				if (!dialogMode) {
-					say("  [%d] %s %s%s%s%s%s%s%s %s%s %s\n", updateCount, \
+					say("  [%ld] %s %s%s%s%s%s%s%s %s%s %s\n", updateCount, \
 						remove_list[i].get_name().c_str(), \
 						CL_6, remove_list[i].get_fullversion().c_str(), CL_WHITE, _(" ==> "), 
 						CL_GREEN, remove_list[i].updatingBy->get_fullversion().c_str(), CL_BLUE, branch.c_str(), CL_WHITE, reason.c_str());
@@ -475,7 +475,7 @@ int mpkgDatabase::commit_actions()
 				}
 				if (verbose) reason = install_list[i].package_action_reason;
 				repairCount++;
-				if (!dialogMode) say("  [%d] %s %s %s\n", repairCount, \
+				if (!dialogMode) say("  [%ld] %s %s %s\n", repairCount, \
 						install_list[i].get_name().c_str(), \
 						install_list[i].get_fullversion().c_str(), reason.c_str());
 				else dialogMsg += "  [" + IntToStr(repairCount) + "] " + install_list[i].get_name() + " " + install_list[i].get_fullversion() + "\n";
@@ -1373,7 +1373,7 @@ int mpkgDatabase::remove_package(PACKAGE* package, size_t packageNum, size_t pac
 			if (removeThis && fname[fname.length()-1]!='/')
 			{
 				if (!simulate && !dontRemove) {
-					if (verbose && !dialogMode) say("[%d] %s %s: ", (size_t) i, _("Removing file"), fname.c_str());
+					if (verbose && !dialogMode) say("[%ld] %s %s: ", (size_t) i, _("Removing file"), fname.c_str());
 					unlink_ret = unlink(fname.c_str());
 					if (verbose && !dialogMode) {
 						if (unlink_ret==0) say("%sOK%s\n", CL_GREEN, CL_WHITE);
@@ -1408,7 +1408,7 @@ int mpkgDatabase::remove_package(PACKAGE* package, size_t packageNum, size_t pac
 				if (!simulate && !dontRemove) {
 					unlink_ret = rmdir(empty_dirs[x].c_str());
 					if (verbose) {
-						if (unlink_ret == 0) say("[%d] %s %s\n", i, _("Removing empty directory"), fname.c_str());
+						if (unlink_ret == 0) say("[%ld] %s %s\n", i, _("Removing empty directory"), fname.c_str());
 					}
 
 				}
@@ -1775,7 +1775,7 @@ int mpkgDatabase::updateRepositoryData(PACKAGE_LIST *newPackages)
 	// Вообще говоря, ее можно было бы делать прямо здесь, но пусть таки будет универсальность.
 	delete newPackages;//->clear();
 	syncronize_data(pkgList, needUpdateRepositoryTags, needUpdateDistroVersion);
-	if (!dialogMode && new_pkgs>0) say(_("New packages in repositories: %d\n"), (size_t) new_pkgs);
+	if (!dialogMode && new_pkgs>0) say(_("New packages in repositories: %ld\n"), (size_t) new_pkgs);
 	return 0;
 }
 int mpkgDatabase::syncronize_data(PACKAGE_LIST *pkgList, vector<bool> needUpdateRepositoryTags, vector<bool> needUpdateDistroVersion)
