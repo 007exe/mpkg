@@ -179,7 +179,7 @@ int convert_package(const string& filename, const string& output_dir)
 //	char tmp[1000];
 	say("converting package %s\n", filename.c_str());
 	int name_start=0;
-	for (int i=filename.length()-1; filename[i]!='/' && i>=0; i--)
+	for (int i=filename.length()-1;i>=0 && filename[i]!='/'; i--)
 	{
 		name_start=i;
 	}

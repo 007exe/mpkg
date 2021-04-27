@@ -115,7 +115,7 @@ int slack2xml(string filename, string xml_output)
 	int pos=0;
 	int name_start=0;
 	string tmp;
-	for (int i=filename.length()-1; filename[i]!='/' && i>=0; i--)
+	for (int i=filename.length()-1;i>=0 && filename[i]!='/'; i--)
 	{
 		name_start=i;
 	}

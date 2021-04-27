@@ -722,7 +722,7 @@ char myTagCompare(XMLCSTR cclose, XMLCSTR copen)
 void XMLNode::removeOrderElement(XMLNodeData *d, XMLElementType t, int index)
 {
     int j=(int)((index<<2)+t),i=0,n=nElement(d)+1, *o=d->pOrder;
-    while ((o[i]!=j)&&(i<n)) i++;
+    while ((i<n)&&(o[i]!=j)) i++;
     n--;
     memmove(o+i, o+i+1, (n-i)*sizeof(int));
     for (;i<n;i++)
