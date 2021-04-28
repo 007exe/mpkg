@@ -383,7 +383,7 @@ int ProcessPackage(const char *filename, const struct stat *, int filetype) {
 		unsigned int max_size = 0;
 		unsigned int max_d_size = 0;
 		for (unsigned int i=0; i<skipDirs.size(); ++i) {
-			if (path.find(skipDirs[i])) return 0;
+			if (path.find(skipDirs[i]) != std::string::npos) return 0;
 		}
 		for (unsigned int i=0; i<repositoryTags.size(); ++i) {
 			if (path.find(repositoryTags[i].tag)==0 && repositoryTags[i].tag.size()>max_size) {
