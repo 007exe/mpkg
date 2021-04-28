@@ -698,7 +698,6 @@ int Repository::get_index(string server_url, PACKAGE_LIST *packages, unsigned in
 		return -1;
 	}
 
-	PACKAGE *pkg = new PACKAGE;
 	string xml_name=index_filename;
 	
 	xmlDocPtr indexDoc;
@@ -708,7 +707,6 @@ int Repository::get_index(string server_url, PACKAGE_LIST *packages, unsigned in
 	currentStatus = "["+server_url+_("] Importing data...");
 
 	if (_abortActions) {
-		delete pkg;
 		return MPKGERROR_ABORTED;
 	}
 
@@ -723,7 +721,6 @@ int Repository::get_index(string server_url, PACKAGE_LIST *packages, unsigned in
 			xmlData = ReadFile(xml_name.c_str());
 			xmlStart = xmlData.find("<?xml");
 			if (xmlStart==std::string::npos) {
-				delete pkg;
 				return -1;
 			}
 			if (xmlStart!=0) xmlData.erase(xmlData.begin(), xmlData.begin() + xmlStart);
@@ -736,7 +733,6 @@ int Repository::get_index(string server_url, PACKAGE_LIST *packages, unsigned in
 
 			if (indexDoc == NULL) {
 				xmlFreeDoc(indexDoc);
-				delete pkg;
 				return -1;
 			}
 
@@ -744,7 +740,6 @@ int Repository::get_index(string server_url, PACKAGE_LIST *packages, unsigned in
 			if (indexRootNode == NULL) {
 				mError(_("Failed to get index"));
 				xmlFreeDoc(indexDoc);
-				delete pkg;
 				return -1;
 			}
 
@@ -752,7 +747,6 @@ int Repository::get_index(string server_url, PACKAGE_LIST *packages, unsigned in
 			if (xmlStrcmp(indexRootNode->name, (const xmlChar *) "repository") ) {
 				mError(_("Invalid index file"));
 				xmlFreeDoc(indexDoc);
-				delete pkg;
 				return -1;
 			}
 
@@ -786,7 +780,5 @@ int Repository::get_index(string server_url, PACKAGE_LIST *packages, unsigned in
 		default:
 			break;
 	}
-	delete pkg;
 	return ret;
 }
-
