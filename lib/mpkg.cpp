@@ -1227,7 +1227,7 @@ int mpkgDatabase::remove_package(PACKAGE* package, size_t packageNum, size_t pac
 			break;
 		}
 	}
-	if (package->get_name()=="glibc" || package->get_name()=="glibc-solibs" || package->get_name()=="aaa_elflibs" || package->get_name()=="tar" || package->get_name()=="xz" || package->get_name()=="aaa_base" || package->get_name()=="gzip") {
+	if (package->get_name()=="glibc" || package->get_name()=="aaa_elflibs" || package->get_name()=="tar" || package->get_name()=="xz" || package->get_name()=="aaa_base" || package->get_name()=="gzip") {
 		dontRemove = true;
 	}
 

@@ -156,7 +156,7 @@ int mpkgDatabase::check_file_conflicts_new(const PACKAGE& package)
 		}
 	}
 	bool specialBackup = false;
-	if (package.get_name()=="glibc" || package.get_name()=="glibc-solibs" || package.get_name()=="aaa_elflibs" || package.get_name()=="tar" || package.get_name()=="xz" || package.get_name()=="gzip") {
+	if (package.get_name()=="glibc" || package.get_name()=="aaa_elflibs" || package.get_name()=="tar" || package.get_name()=="xz" || package.get_name()=="gzip") {
 		specialBackup = true;
 	}
 	backupFiles(fileNames, package_ids, package.get_id(), specialBackup);

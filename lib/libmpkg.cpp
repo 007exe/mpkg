@@ -1184,9 +1184,7 @@ void generateDeps_new(mpkg &core, string tgz_filename) {
 	for (size_t i=0; i<minimalPkgList.size(); ++i) {
 		if (!minimalPkgList[i].installed()) continue;
 		if (minimalPkgList[i].get_corename()==data->get_corename()) continue;
-		if (minimalPkgList[i].get_name()=="glibc") dep.set_package_name("glibc-solibs");
-		else if (minimalPkgList[i].get_name()=="openssl") dep.set_package_name("openssl-solibs");
-		else if (minimalPkgList[i].get_corename()=="nvidia-driver") continue;
+		if (minimalPkgList[i].get_corename()=="nvidia-driver") continue;
 		else dep.set_package_name(minimalPkgList[i].get_corename());
 		dep.set_condition(IntToStr(VER_XMORE));
 		dep.set_package_version(minimalPkgList[i].get_version());
