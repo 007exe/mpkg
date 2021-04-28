@@ -779,8 +779,8 @@ int Repository::get_index(string server_url, PACKAGE_LIST *packages, unsigned in
 			*mList = ReadFile(md5sums_filename);
 
 			ret = slackpackages2list(pList, mList, packages, server_url);
-			if (pList!=NULL) delete pList;
-			if (mList!=NULL) delete mList;
+			delete pList;
+			delete mList;
 			break;
 
 		default:

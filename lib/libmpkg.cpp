@@ -1246,7 +1246,7 @@ void generateDeps_new(mpkg &core, string tgz_filename) {
 		system("rm -rf " + tmp_dir);
 	}
 	if (lp) delete lp;
-	else if (data) delete data;
+	else delete data;
 	delete_tmp_files();
 
 }
