@@ -532,10 +532,10 @@ XMLSTR toXMLString(XMLSTR dest,XMLCSTR source)
 #else
         switch(XML_ByteTable[(unsigned char)ch])
         {
-        case 4: *(dest++)=*(source++);
-        case 3: *(dest++)=*(source++);
-        case 2: *(dest++)=*(source++);
-        case 1: *(dest++)=*(source++);
+        case 4: *(dest++)=*(source++); break;
+        case 3: *(dest++)=*(source++); break;
+        case 2: *(dest++)=*(source++); break;
+        case 1: *(dest++)=*(source++); break;
         }
 #endif
 out_of_loop1:
@@ -685,10 +685,10 @@ XMLSTR fromXMLString(XMLCSTR s, int lo, XML *pXML)
 #else
             switch(XML_ByteTable[(unsigned char)*ss])
             {
-            case 4: *(d++)=*(ss++); ll--;
-            case 3: *(d++)=*(ss++); ll--;
-            case 2: *(d++)=*(ss++); ll--;
-            case 1: *(d++)=*(ss++);
+            case 4: *(d++)=*(ss++); ll--; break;
+            case 3: *(d++)=*(ss++); ll--; break;
+            case 2: *(d++)=*(ss++); ll--; break;
+            case 1: *(d++)=*(ss++); break;
             }
 #endif
         }
@@ -864,8 +864,8 @@ static NextToken GetNextToken(XML *pXML, int *pcbToken, enum XMLTokenTypeTag *pT
                 // Set the type and ensure we point at the next character
                 getNextChar(pXML);
                 *pType = eTokenShortHandClose;
-                break;
             }
+                break;
 
             // If we haven't found a short hand closing tag then drop into the
             // text process
@@ -2382,11 +2382,11 @@ char XMLNode::guessUTF8ParsingParameterValue(void *buf,int l, char useXMLEncodin
     while (i<l)
         switch (XML_utf8ByteTable[b[i]])
         {
-        case 4: i++; if ((i<l)&&(b[i]& 0xC0)!=0x80) return 0; // 10bbbbbb ?
-        case 3: i++; if ((i<l)&&(b[i]& 0xC0)!=0x80) return 0; // 10bbbbbb ?
-        case 2: i++; if ((i<l)&&(b[i]& 0xC0)!=0x80) return 0; // 10bbbbbb ?
+        case 4: i++; if ((i<l)&&(b[i]& 0xC0)!=0x80) return 0; break; // 10bbbbbb ?
+        case 3: i++; if ((i<l)&&(b[i]& 0xC0)!=0x80) return 0; break; // 10bbbbbb ?
+        case 2: i++; if ((i<l)&&(b[i]& 0xC0)!=0x80) return 0; break;// 10bbbbbb ?
         case 1: i++; break;
-        case 0: i=l;
+        case 0: i=l; break;
         }
     if (!useXMLEncodingAttribute) return 1;
     // if encoding is specified and different from utf-8 than it's non-utf8
