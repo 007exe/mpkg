@@ -243,7 +243,7 @@ void actUpgrade(mpkg &core, int action) {
 				}
 				else {
 					uList = resultList;
-					fprintf(stderr, string("\r" + string(_("Found ")) + IntToStr(resultList.size()) + _(" updates\n")).c_str());
+					fprintf(stderr, "%s", string("\r" + string(_("Found ")) + IntToStr(resultList.size()) + _(" updates\n")).c_str());
 					fprintf(stderr,_("Total: %s to download\n"), humanizeSize(totalSizeC).c_str());
 
 				}
