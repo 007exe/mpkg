@@ -756,7 +756,7 @@ void showPackageInfoDialog(const PACKAGE *pkg, const string &hasUpdate) {
 			for (unsigned int t=0; t<pkg->get_locations().size(); t++) {
 				url = pkg->get_locations().at(t).get_full_url();
 			       	if (pkg->get_filename()!=url) url += pkg->get_filename();
-				if (url.find("/./")) url = url.substr(0, url.find("/./")) + url.substr(url.find("/./")+2);
+				if (url.find("/./") != std::string::npos) url = url.substr(0, url.find("/./")) + url.substr(url.find("/./")+2);
 				locationsInfo += "  " + url + "\n";
 			}
 			deltaInfo.clear();
@@ -799,8 +799,6 @@ void showPackageInfoDialog(const PACKAGE *pkg, const string &hasUpdate) {
 				+ hasABUILD \
 				+ hasUpdate;
 				;
-
-
 	//	}
 		ncInterface.showMsgBox(data);
 		return;
