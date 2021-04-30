@@ -83,7 +83,7 @@ bool tryGetDelta(PACKAGE *p, const string workingDir) {
 				if (!dialogMode) say("%s", _("Merge OK, but got wrong MD5!\n"));
 				return false;
 			}
-			if (!dialogMode) say("%s", _("Delta patch successfully merged in %s\n"), p->get_filename().c_str());
+			if (!dialogMode) say(_("Delta patch successfully merged in %s\n"), p->get_filename().c_str());
 			// Deleting delta file, because we don't need it anymore:
 			unlink(string(workingDir + getFilename(p->deltaSources[i].dup_url)).c_str());
 			return true;
