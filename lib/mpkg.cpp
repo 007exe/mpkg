@@ -24,23 +24,22 @@ void pkgConfigInstall(const PACKAGE &package) {
 	if (package.config_files.empty()) {
 		return;
 	}
-       	
+
 	bool sysconf_exists;
 	string sysconf_name, orig_name, old_name;
 	for (size_t i=0; i<package.config_files.size(); ++i) {
 		if (verbose) printf("Install: checking config file %s\n", sysconf_name.c_str());
-		
+
 		if (package.config_files[i].hasAttribute("class", "sample")) continue; // No need for manipulation with these files
 		if (package.config_files[i].hasAttribute("class", "generated")) continue; // Nothing to do with this stuff
-		
 		sysconf_name = SYS_ROOT + "/" + package.config_files[i].name;
 		orig_name = SYS_ROOT+"/var/mpkg/configs/" + package.get_corename() + "/" + package.config_files[i].name;
 		old_name = SYS_ROOT+"/var/mpkg/configs/" + package.get_corename() + "/" + package.config_files[i].name + ".old";
 
- 
+
 		// Проверяется, есть ли уже такой конфиг в системе:
 		sysconf_exists = FileExists(sysconf_name);
- 
+
 		// Create a copy of new conf
 		system("mkdir -p " + getDirectory(orig_name));
 		system("cp " + sysconf_name + ".new " + orig_name); // Creating backup copy
@@ -64,7 +63,7 @@ void pkgConfigInstall(const PACKAGE &package) {
 
 		// Note user if a .new file still exists.
 		if (FileExists(sysconf_name + ".new")) printf(_("\n%s: Note: %s%s.new%s exists, %scheck for changes%s\n"), package.get_name().c_str(), CL_GREEN, sysconf_name.c_str(), CL_WHITE, CL_RED, CL_WHITE);
-		
+
 		// What to do with a .new one if it has to be leaved there? Let's leave it alone, until decided otherwise.
 	}
 }
@@ -72,17 +71,16 @@ void pkgConfigInstall(const PACKAGE &package) {
 void pkgConfigRemove(const PACKAGE &package) {
 	// Check only one thing: if original file is the same as current one, we can remove it freely.
 	if (package.config_files.empty()) return;
-       	
 	bool sysconf_exists, orig_exists;
 	string sysconf_name, orig_name, old_name;
 	for (size_t i=0; i<package.config_files.size(); ++i) {
 		sysconf_name = SYS_ROOT + "/" + package.config_files[i].name;
 		orig_name = SYS_ROOT+"/var/mpkg/configs/" + package.get_corename() + "/" + package.config_files[i].name;
 		old_name = SYS_ROOT+"/var/mpkg/configs/" + package.get_corename() + "/" + package.config_files[i].name + ".old";
- 
+
 		// Проверяется, есть ли уже такой конфиг в системе:
 		sysconf_exists = FileExists(sysconf_name);
- 
+
 		// Проверяется, есть ли копия предыдущего оригинального конфига в var/mpkg/configs/$pkgname/$conf_path/$conf_file
 		orig_exists = FileExists(orig_name);
 
@@ -95,7 +93,6 @@ void pkgConfigRemove(const PACKAGE &package) {
 		else printf(_("Config file %s vanished: perhaps it was removed by someone else.\n"), sysconf_name.c_str());
 	}
 
-	
 }
 
 
@@ -120,7 +117,6 @@ PACKAGE mpkgDatabase::get_installed_package(const string& pkg_name)
 
 	get_packagelist(sqlSearch, &packagelist, true, false);
 	// We do NOT allow multiple packages with same name to be installed, so, we simply get first package of list.
-	
 	if (packagelist.size()>0)
 		return packagelist[0];
 	else
@@ -129,7 +125,6 @@ PACKAGE mpkgDatabase::get_installed_package(const string& pkg_name)
 		return ret;
 	}
 }
-	
 
 int mpkgDatabase::emerge_to_db(PACKAGE *package)
 {
@@ -147,7 +142,7 @@ int mpkgDatabase::emerge_to_db(PACKAGE *package)
 		// Query error
 		return MPKGERROR_CRITICAL;
 	}
-	
+
 	// Раз пакет уже в базе (и в единственном числе - а иначе и быть не должно), сравниваем данные.
 	// В случае необходимости, добавляем location.
 	PACKAGE db_package;
@@ -187,7 +182,7 @@ bool mpkgDatabase::check_cache(PACKAGE *package, bool clear_wrong, ItemOrder ite
 
 		// If all ok, returning true
 	       	if (package->get_md5() == got_md5) return true;
-		
+
 		// And, if wrong, see if we should clear bad link. Note that if we use enableDownloadResume flag, clear_wrong is set to false always.
 		if (!clear_wrong) {
 			if (!dialogMode && !enableDownloadResume) {
@@ -254,7 +249,6 @@ int mpkgDatabase::commit_actions()
 	}
 	//printf("SLOW GET_PACKAGELIST CALL: %s %d\n", __func__, __LINE__);
 	if (get_packagelist(sqlSearch, &install_list, false, false)!=0) return MPKGERROR_SQLQUERYERROR;
-	
 
 	// Checking available space
 	long double rem_size=0;
@@ -293,7 +287,7 @@ int mpkgDatabase::commit_actions()
 	}
 	long double freespace = get_disk_freespace(SYS_ROOT);
 	long double required_space = (ins_size - rem_size)+(ins_size - rem_size)*0.2;
-	
+
 	if (freespace < required_space)
 	{
 		if (dialogMode)
@@ -306,13 +300,13 @@ int mpkgDatabase::commit_actions()
 		else mWarning(_("It seems to be that disk free space is not enough to install. Required: ") + humanizeSize(required_space) + _(", available: ") + humanizeSize(freespace));
 	}
 
-	// Sorting install order: from lowest priority to maximum one 
+	// Sorting install order: from lowest priority to maximum one
 	if (dialogMode) {
 		ncInterface.setProgressText(_("Detecting package installation order (this may take a while)..."));
 		ncInterface.setProgress(4);
 	}
 
-	// These sortings really doesn't do anything important, but since results are different with these ones, let them be. 
+	// These sortings really doesn't do anything important, but since results are different with these ones, let them be.
 	install_list.sortByLocations();
 	install_list.sortByTags();
 
@@ -445,7 +439,7 @@ int mpkgDatabase::commit_actions()
 				if (!dialogMode) {
 					say("  [%ld] %s %s%s%s%s%s%s%s %s%s %s\n", updateCount, \
 						remove_list[i].get_name().c_str(), \
-						CL_6, remove_list[i].get_fullversion().c_str(), CL_WHITE, _(" ==> "), 
+						CL_6, remove_list[i].get_fullversion().c_str(), CL_WHITE, _(" ==> "),
 						CL_GREEN, remove_list[i].updatingBy->get_fullversion().c_str(), CL_BLUE, branch.c_str(), CL_WHITE, reason.c_str());
 
 					if (!checkAcceptedArch(remove_list[i].updatingBy)) mWarning(string(CL_RED) + \
@@ -527,7 +521,7 @@ int mpkgDatabase::commit_actions()
 				if (!ncInterface.showText(dialogMsg, _("Continue"), _("Cancel"))) return MPKGERROR_ABORTED;
 			}
 		}
-		else 
+		else
 		{
 			if (!dialogMode) say ("%s", _("Nothing to do\n"));
 			else ncInterface.showMsgBox(_("Nothing to do\n"));
@@ -556,7 +550,7 @@ int mpkgDatabase::commit_actions()
 		}
 		return 0;
 	}
-	
+
 	int transaction_id = startTransaction(install_list, remove_list, getSqlDb());
 	msay(_("Looking for install queue"));
 	vector<bool> needFullDownload(install_list.size());
@@ -587,19 +581,15 @@ int mpkgDatabase::commit_actions()
 			// Clear broken symlinks
 			//clean_cache_symlinks();
 			msay(_("Checking cache and building download queue: ") + install_list[i].get_name());
-			
+
 			// Item order mark. No last here.
 			if (i==0) thisItemOrder = ITEMORDER_FIRST;
 			else thisItemOrder = ITEMORDER_MIDDLE;
-	
-
 			if (skip || !check_cache(install_list.get_package_ptr(i), !enableDownloadResume, thisItemOrder)) {
 				needFullDownload[i]=!tryGetDelta(install_list.get_package_ptr(i));
 			}
 			if (needFullDownload[i]) {
-
 				itemLocations.clear();
-				
 				tmpDownloadItem.expectedSize=strtod(install_list[i].get_compressed_size().c_str(), NULL);
 				tmpDownloadItem.file = SYS_CACHE + install_list[i].get_filename();
 				tmpDownloadItem.name = install_list[i].get_name();
@@ -607,18 +597,16 @@ int mpkgDatabase::commit_actions()
 				tmpDownloadItem.status = DL_STATUS_WAIT;
 				tmpDownloadItem.itemID = install_list[i].itemID;
 				tmpDownloadItem.usedSource = (string *) &install_list[i].usedSource;
-	
 				install_list.get_package_ptr(i)->sortLocations();
 				for (size_t k = 0; k < install_list[i].get_locations().size(); k++) {
 					itemLocations.push_back(install_list[i].get_locations().at(k).get_server_url() \
 						     + install_list[i].get_locations().at(k).get_path() \
 						     + install_list[i].get_filename());
-	
 				}
 				tmpDownloadItem.url_list = itemLocations;
 				downloadQueue.push_back(tmpDownloadItem);
 			}
-	
+
 			if (!setupMode) {
 				pData.increaseItemProgress(install_list[i].itemID);
 				pData.setItemState(install_list[i].itemID, ITEMSTATE_FINISHED);
@@ -626,7 +614,7 @@ int mpkgDatabase::commit_actions()
 		}
 		ncInterface.setProgress(0);
 		bool do_download = true;
-	
+
 		pData.resetItems(_("waiting"), 0, 1, ITEMSTATE_WAIT);
 download_process:
 		// DOWNLOAD SECTION
@@ -640,9 +628,7 @@ download_process:
 				if (!_abortActions) {
 					return MPKGERROR_ABORTED;
 				}
-					
 			}
-		
 		}
 		pData.downloadAction=false;
 		if (download_only) {
@@ -651,12 +637,11 @@ download_process:
 			return 0;
 		}
 // installProcess:
-	
 
 		pData.resetItems(_("waiting"), 0, 1, ITEMSTATE_WAIT);
-	
+
 		skip=false;
-		
+
 		msay(_("Checking files (comparing MD5):"));
 		pData.setCurrentAction(_("Checking md5"));
 		if (dialogMode) {
@@ -679,7 +664,7 @@ download_process:
 
 			}
 			msay(_("Checking md5 of downloaded files: ") + install_list[i].get_name());
-	
+
 			if (i==install_list.size()-1) thisItemOrder = ITEMORDER_LAST;
 			else if (i==0) thisItemOrder = ITEMORDER_FIRST;
 			else thisItemOrder = ITEMORDER_MIDDLE;
@@ -687,7 +672,7 @@ download_process:
 			if (!check_cache(install_list.get_package_ptr(i), false, thisItemOrder))
 			{
 				pData.setItemState(install_list[i].itemID, ITEMSTATE_FAILED);
-	
+
 				MpkgErrorReturn errRet = mpkgErrorHandler.callError(MPKG_DOWNLOAD_ERROR, _("Invalid checksum in downloaded file"));
 				switch(errRet)
 				{
@@ -721,7 +706,7 @@ download_process:
 		msay(_("Looking for remove queue"));
 		msay(_("Removing ") + IntToStr(remove_list.size()) + _(" packages"));
 		pData.setCurrentAction(_("Removing packages"));
-	
+
 		int removeItemID=0;
 		for (size_t i=0; i<remove_list.size(); ++i) {
 			removeItemID=remove_list[i].itemID;
@@ -741,7 +726,7 @@ download_process:
 				if (dialogMode) ncInterface.setSubtitle(_("Removing packages"));
 			}
 			currentItemNum++;
-			
+
 			if (dialogMode) {
 				ncInterface.setProgressText("[" + IntToStr(currentItemNum) + "/" + IntToStr(totalItemCount) + "] " + _actionName + " " + \
 						remove_list[i].get_name() + "-" + \
@@ -772,7 +757,7 @@ download_process:
 		clean_backup_directory();
 	} // Done removing packages
 
-	if (install_list.size()>0) {	
+	if (install_list.size()>0) {
 		// Actually installing
 
 		pData.setCurrentAction(_("Installing packages"));
@@ -781,7 +766,7 @@ download_process:
 			sz += (uint64_t) atol(install_list[i].get_installed_size().c_str());
 		}
 		pData.resetItems(_("waiting"), 0, 8, ITEMSTATE_WAIT);
-	
+
 
 		if (dialogMode) {
 			ncInterface.setSubtitle(_("Installing packages"));
@@ -797,7 +782,7 @@ download_process:
 		for (size_t i=0;i<install_list.size(); ++i) {
 			currentItemNum++;
 			pkgInstallStartTime=time(NULL); // TIMER 1: mark package installation start
-			
+
 			if (_abortActions) {
 				sqlFlush();
 				return MPKGERROR_ABORTED;
@@ -825,7 +810,7 @@ download_process:
 				installFailures++;
 				pData.setItemCurrentAction(install_list[i].itemID, _("Installation failed"));
 				pData.setItemState(install_list[i].itemID, ITEMSTATE_FAILED);
-				
+
 				// change in 0.12.9: will stop installation if previous brokes...
 				mError(_("Failed to install package ") + install_list[i].get_name() + _(". Due to possible dependency issues, the installation procedure will stop now."));
 				return MPKGERROR_COMMITERROR;
@@ -842,11 +827,11 @@ download_process:
 			pkgInstallEndTime=time(NULL); // TIMER 2: Mark end of package installation
 			pkgInstallTime.push_back(pkgInstallEndTime-pkgInstallStartTime); // Store data
 			pkgInstallSize.push_back(atoi(install_list[i].get_installed_size().c_str())); // Store more data :)
-			
+
 			// Approximate by total stats time, not so good
 			pkgTotalInstallTime+=(pkgInstallEndTime-pkgInstallStartTime); // Adding summary time
 			pkgInstallCurrentSize += (uint64_t) atol(install_list[i].get_installed_size().c_str()); // Adding completed size;
-		
+
 			if (pkgTotalInstallTime!=0) pkgInstallSpeed=(long double) pkgInstallCurrentSize/(long double) pkgTotalInstallTime; // Update pkgInstal speed
 			ETA_Time = (time_t) ((long double) (sz-pkgInstallCurrentSize)/pkgInstallSpeed);
 			if (i==install_list.size()-1) {
@@ -861,12 +846,12 @@ download_process:
 	pData.setCurrentAction(_("Updating system files"));
 	if (removeFailures!=0 && installFailures!=0) return MPKGERROR_COMMITERROR;
 	sqlFlush(); // Teh fuckin' trouble place
-	
+
 	// NEW 25.08.08: cleanup db for local packages
 	msay(_("Clearing unreachable packages"), SAYMODE_NEWLINE);
 	clear_unreachable_packages();
-	
-	if (install_list.size()>0 || remove_list.size()>0) 
+
+	if (install_list.size()>0 || remove_list.size()>0)
 	{
 		msay(_("Executing ldconfig"), SAYMODE_NEWLINE);
 		if (FileExists("/usr/sbin/prelink") && mConfig.getValue("enable_prelink")=="yes") {
@@ -898,7 +883,7 @@ download_process:
 			printf(_("[%d/%d] Removing GConf schema %s\n"), (int) i+1, (int) gconfSchemasUninstall.size(), gconfSchemasUninstall[i].c_str());
 			system("chroot " + SYS_ROOT + " /usr/sbin/gconfpkg --uninstall " + gconfSchemasUninstall[i] + " 1> /dev/null 2> /dev/null");
 		}
-	
+
 		printf("Total GConf schemas to install: %d\n", (int) gconfSchemas.size());
 		for (size_t i=0; i<gconfSchemas.size(); ++i) {
 			printf(_("[%d/%d] Installing GConf schema %s\n"), (int) i+1, (int) gconfSchemas.size(), gconfSchemas[i].c_str());
@@ -908,10 +893,10 @@ download_process:
 		// Always update mime database, it takes not much time but prevents lots of troubles
 		msay(_("Updating icon cache and mime database"), SAYMODE_NEWLINE);
 		system("chroot " + SYS_ROOT + " /usr/bin/update-all-caches >/dev/null");
-		
+
 		// Cleanup
 		system("rm -rf " + SYS_ROOT + "/install");
-		
+
 		// Hooks
 		hookManager.runHooks();
 
@@ -934,7 +919,7 @@ int mpkgDatabase::install_package(PACKAGE* package, size_t packageNum, size_t pa
 	}
 	//system("echo `date +\%d.\%m.\%Y\\ \%H:\%M:\%S` Installing package " + package->get_name() + "-" + package->get_fullversion() + " >> /var/log/mpkg-installation.log");
 #endif
-	
+
 	// Check if package already has been installed
 	if (package->action()==ST_NONE) return 0;
 	string sys_cache=SYS_CACHE;
@@ -950,7 +935,7 @@ int mpkgDatabase::install_package(PACKAGE* package, size_t packageNum, size_t pa
 	msay(index_str + _("Installing ") + package->get_name() + " " + package->get_fullversion() + _(": initialization"), SAYMODE_INLINE_START);
 	string statusHeader = _("Installing package ") + package->get_name()+": ";
 	currentStatus = statusHeader + _("initialization");
-	
+
 	// NEW (04.10.2007): Check if package is source, and build if needed. Also, import to database the output binary package and prepare to install it.
 	msay(index_str + _("Installing ") + package->get_name() + " " + package->get_fullversion() +_( ": checking package type"));
 
@@ -966,7 +951,7 @@ int mpkgDatabase::install_package(PACKAGE* package, size_t packageNum, size_t pa
 		}
 		say(_("Package was built. Filename: %s\n"), binary_out.c_str());
 		// Now we have a new binary package with filename stored in variable binary_out. Import him into database and create a link to cache.
-		
+
 		if (!copyFile(binary_out, SYS_CACHE + getFilename(binary_out))) {
 			mError("Error copying package, aborting...");
 			return MPKG_INSTALL_META_ERROR;
@@ -1010,7 +995,7 @@ int mpkgDatabase::install_package(PACKAGE* package, size_t packageNum, size_t pa
 		sqlFlush();
 		return MPKGERROR_ABORTED;
 	}
-	
+
 	pData.increaseItemProgress(package->itemID);
 	if (!ultraFastMode) {
 		if (dialogMode) ncInterface.setProgressText(index_str + _("Installing ") + package->get_name() + " " + package->get_fullversion() + "\n" + index_hole + _("extracting scripts")); 
@@ -1031,7 +1016,7 @@ int mpkgDatabase::install_package(PACKAGE* package, size_t packageNum, size_t pa
 		lp.fill_filelist(package); // Extracting file list
 	}
 #endif
-	
+
 	if (!needUpdateXFonts) {
 		msay(index_str + _("Installing ") + package->get_name() + " " + package->get_fullversion() + _(": looking for X fonts"));
 
@@ -1076,7 +1061,7 @@ int mpkgDatabase::install_package(PACKAGE* package, size_t packageNum, size_t pa
 
 	msay(index_str + _("Installing ") + package->get_name() + " " + package->get_fullversion() + _(": checking file conflicts"));
 	if (dialogMode) ncInterface.setProgressText(index_str + _("Installing ") + package->get_name() + " " + package->get_fullversion() +"\n" + index_hole + _("checking file conflicts"));
-	if (fileConflictChecking==CHECKFILES_PREINSTALL) 
+	if (fileConflictChecking==CHECKFILES_PREINSTALL)
 	{
 
 		currentStatus = statusHeader + _("checking file conflicts");
@@ -1095,7 +1080,7 @@ int mpkgDatabase::install_package(PACKAGE* package, size_t packageNum, size_t pa
 			return MPKG_INSTALL_FILE_CONFLICT;
 		}
 	}
-	
+
 	currentStatus = statusHeader + _("installing...");
 	pData.increaseItemProgress(package->itemID);
 
@@ -1106,7 +1091,7 @@ int mpkgDatabase::install_package(PACKAGE* package, size_t packageNum, size_t pa
 #ifndef INSTALL_DEBUG
 	add_filelist_record(package->get_id(), package->get_files_ptr());
 #endif
-	
+
 	string sys;
 
 	// Extracting package
@@ -1162,7 +1147,7 @@ int mpkgDatabase::install_package(PACKAGE* package, size_t packageNum, size_t pa
 #endif*/
 
 	// Managing config files
-	pkgConfigInstall(*package);	
+	pkgConfigInstall(*package);
 
 	hookManager.addInstalled(package);
 	package->get_files_ptr()->clear();
@@ -1206,7 +1191,6 @@ int mpkgDatabase::install_package(PACKAGE* package, size_t packageNum, size_t pa
 	msay(index_str + _("Installing ") + package->get_name() + " " + package->get_fullversion() + _(": complete"), SAYMODE_INLINE_END);
 	if (package->action()==ST_REPAIR) recordPackageTransaction(*package, 1, transaction_id, getSqlDb());
 	package->set_action(ST_NONE, "install_complete");
-	
 	recordPackageTransaction(*package, 0, transaction_id, getSqlDb());
 	return 0;
 }	//End of install_package
@@ -1245,7 +1229,7 @@ int mpkgDatabase::remove_package(PACKAGE* package, size_t packageNum, size_t pac
 
 	string statusHeader = _("Removing package ") + package->get_name()+": ";
 	currentStatus = statusHeader + _("initialization");
-	
+
 	if (package->action()==ST_REMOVE || package->action()==ST_PURGE || package->action()==ST_UPDATE)
 	{
 		// Checking if package is updating, if so, get the files of new package already
@@ -1255,7 +1239,6 @@ int mpkgDatabase::remove_package(PACKAGE* package, size_t packageNum, size_t pac
 			lp->fill_filelist(package->updatingBy);
 			delete lp;
 		}
-
 
 		// Running pre-remove scripts
 		//printf("Processing\n");
@@ -1269,9 +1252,9 @@ int mpkgDatabase::remove_package(PACKAGE* package, size_t packageNum, size_t pac
 				if (!simulate) system(prerem.c_str());
 			}
 		}
-		
+
 		pData.increaseItemProgress(package->itemID);
-		
+
 		// removing package
 		string sys_cache=SYS_CACHE;
 		string sys_root=SYS_ROOT;
@@ -1283,8 +1266,6 @@ int mpkgDatabase::remove_package(PACKAGE* package, size_t packageNum, size_t pac
 		vector<FILE_EXTENDED_DATA> backups;
 		vector<string> backups_filenames;
 		get_backup_records(*package, &backups_filenames, &backups);
-
-
 
 		// Purge is now implemented here; checking all
 		currentStatus = statusHeader + _("building file list");
@@ -1347,15 +1328,14 @@ int mpkgDatabase::remove_package(PACKAGE* package, size_t packageNum, size_t pac
 					break;
 				}
 			}
-		
 
-			// Checking for: 
+			// Checking for:
 			// - if file is a configuration file
 			// - if file will be overwritten by new package
 			//
-			
+
 			removeThis = false;
-			
+
 			if (package->action()!=ST_UPDATE) {
 				removeThis = true;
 			}
@@ -1387,13 +1367,13 @@ int mpkgDatabase::remove_package(PACKAGE* package, size_t packageNum, size_t pac
 		msay(index_str + action_str + " " + package->get_name() + " " + package->get_fullversion() + by_str+_(": removing empty directories"));
 
 		currentStatus = statusHeader + _("removing empty directories...");
-	
+
 		// Run 2: clearing empty directories
 		vector<string>empty_dirs;
 		string edir;
-		
+
 		pData.increaseItemProgress(package->itemID);
-		
+
 		for (size_t i=0; i<remove_files->size(); ++i) {
 			fname=sys_root + "/" + remove_files->at(i);
 			for (size_t d=0; d<fname.length(); ++d)	{
@@ -1416,7 +1396,7 @@ int mpkgDatabase::remove_package(PACKAGE* package, size_t packageNum, size_t pac
 			edir.clear();
 			empty_dirs.clear();
 		}
-	
+
 		// Creating and running POST-REMOVE script
 		if (!DO_NOT_RUN_SCRIPTS)
 		{
@@ -1431,18 +1411,17 @@ int mpkgDatabase::remove_package(PACKAGE* package, size_t packageNum, size_t pac
 		// Clearing scripts
 		msay(index_str + action_str + " " + package->get_name() + " " + package->get_fullversion() + by_str + _(": clearing script directory"));
 		system("rm -rf " + package->get_scriptdir() + " 2>/dev/null >/dev/null");
-	
+
 		// Restoring backups. NOTE: if there is an updating package, manage backups anyway. TODO: minimize file operation by processing more data
-		
+
 		msay(index_str + action_str + " " + package->get_name() + " " + package->get_fullversion() + by_str+_(": restoring backups"));
 
-		
 		// Creating restore lists. Note that both objects are linked inside.
 		vector<string> restore_fnames;
 		vector<FILE_EXTENDED_DATA> restore;
 
 		get_conflict_records(package->get_id(), &restore_fnames, &restore);
-		int ret;
+
 		if (!restore.empty()) {
 			string cmd;
 			string tmpName;
@@ -1457,12 +1436,11 @@ int mpkgDatabase::remove_package(PACKAGE* package, size_t packageNum, size_t pac
 				tmpName = restore[i].backup_file.substr(SYS_BACKUP.length());
 				tmpName = tmpName.substr(tmpName.find("/"));
 			        cmd += SYS_ROOT + "/" + tmpName.substr(0,tmpName.find_last_of("/"))+"/ 2>/dev/null >/dev/null";
-				if (!simulate) ret = system(cmd);
 				if (verbose) cout << "RESTORE: " << cmd << endl;
 				delete_conflict_record(package->get_id(), restore[i].backup_file);
 			}
 		}
-		
+
 		// Calling remove for package configs
 		pkgConfigRemove(*package);
 
@@ -1484,7 +1462,6 @@ int mpkgDatabase::remove_package(PACKAGE* package, size_t packageNum, size_t pac
 		pData.setItemProgress(package->itemID, pData.getItemProgressMaximum(package->itemID));
 		if (package->action()==ST_UPDATE) msay(index_str + action_str + " " + package->get_name() + " " + package->get_fullversion() + by_str + _(": done"));
 		else msay(index_str + action_str + " " + package->get_name() + " " + package->get_fullversion() + by_str+": done", SAYMODE_INLINE_END);
-		
 		recordPackageTransaction(*package, 1, transaction_id, getSqlDb());
 		// If update: run install now (for fault tolerance)
 		if (package->action()==ST_UPDATE) {
@@ -1528,7 +1505,6 @@ int mpkgDatabase::delete_packages(PACKAGE_LIST *pkgList)
 	sqlSearch.clear();
 	SQLTable available_tags;
 	SQLRecord fields;
-
 	db.get_sql_vtable(available_tags, sqlSearch, "tags", fields);
 	SQLTable used_tags;
 	db.get_sql_vtable(used_tags, sqlSearch, "tags_links", fields);
@@ -1565,8 +1541,6 @@ int mpkgDatabase::delete_packages(PACKAGE_LIST *pkgList)
 	return 0;
 }
 
-
-
 int mpkgDatabase::cleanFileList(int package_id) {
 	SQLRecord sqlSearch;
 	sqlSearch.addField("packages_package_id", package_id);
@@ -1588,7 +1562,6 @@ int mpkgDatabase::update_package_data(int package_id, PACKAGE *package)
 	{
 		return -1;
 	}
-	
 	SQLRecord sqlUpdate;
 	SQLRecord sqlSearch;
 	sqlSearch.addField("package_id", package_id);
@@ -1617,13 +1590,13 @@ int mpkgDatabase::update_package_data(int package_id, PACKAGE *package)
 
 
 	// 4. Updating locations
-	
+
 	// Note about method used for updating locations:
 	// If locations are not identical:
 	// 	Step 1. Remove all existing package locations from "locations" table. Servers are untouched.
 	// 	Step 2. Add new locations.
 	// Note: after end of updating procedure for all packages, it will be good to do servers cleanup - delete all servers who has no locations.
-	//"mpkg.cpp: update_package_data(): checking locations"	
+	//"mpkg.cpp: update_package_data(): checking locations"
 	if (!package->locationsEqualTo(old_package))
 	{
 		SQLRecord loc_sqlDelete;
@@ -1683,17 +1656,16 @@ bool compareLocations(const vector<LOCATION>& location1, const vector<LOCATION>&
 	return true;
 }
 
-
 int mpkgDatabase::updateRepositoryData(PACKAGE_LIST *newPackages)
 {
 	if (verbose) printf("Update...\n");
 	// Одна из самых страшных функций в этой программе.
 	// Попытаемся применить принципиально новый алгоритм.
-	// 
+	//
 	// Для этого введем некоторые тезисы:
 	// 1. Пакет однозначно идентифицируется по его контрольной сумме.
 	// 2. Пакет без контрольной суммы - не пакет а мусор, выкидываем такое нахрен.
-	// 
+	//
 	// Алгоритм:
 	// 1. Стираем все записи о locations и servers в базе.
 	// 2. Забираем из базы весь список пакетов. Этот список и будет рабочим.
@@ -1705,7 +1677,7 @@ int mpkgDatabase::updateRepositoryData(PACKAGE_LIST *newPackages)
 	// ////////////////////////////////////////////////
 	//"Retrieving current package list, clearing tables"
 	// Стираем locations и servers
-	
+
 	if (verbose) printf("Pre-cleanup...\n");
 	db.clear_table("locations");
 	db.clear_table("deltas");
@@ -1717,7 +1689,6 @@ int mpkgDatabase::updateRepositoryData(PACKAGE_LIST *newPackages)
 		db.clear_table("config_files");
 		db.clear_table("config_options");
 	}
-	
 
 	if (verbose) printf("Data load...\n");
 	// Забираем текущий список пакетов
@@ -1725,7 +1696,6 @@ int mpkgDatabase::updateRepositoryData(PACKAGE_LIST *newPackages)
 	SQLRecord sqlSearch;
 	//printf("SLOW GET_PACKAGELIST CALL: %s %d\n", __func__, __LINE__);
 	get_packagelist(sqlSearch, pkgList, false, true);
-	
 	if (verbose) printf("Scanning for changes...\n");
 	//say("Merging data\n");
 	// Ищем соответствия // TODO: надо б тут что-нить прооптимизировать
@@ -1735,25 +1705,21 @@ int mpkgDatabase::updateRepositoryData(PACKAGE_LIST *newPackages)
 	vector<bool> needUpdateDistroVersion;
 	for(size_t i=0; i<newPackages->size(); ++i) {
 		pkgNumber = pkgList->getPackageNumberByMD5(newPackages->at(i).get_md5());
-		
 		if (pkgNumber!=-1)	// Если соответствие найдено...
 		{
 			pkgList->get_package_ptr(pkgNumber)->set_locations(newPackages->at(i).get_locations());	// Записываем locations
 			pkgList->get_package_ptr(pkgNumber)->deltaSources=newPackages->at(i).deltaSources; // TEMP DISABLED
 			pkgList->get_package_ptr(pkgNumber)->abuild_url=newPackages->at(i).abuild_url; // One ABUILD record will be enough.
-			
 			if (pkgList->get_package_ptr(pkgNumber)->get_repository_tags()!=newPackages->at(i).get_repository_tags()) {
 				pkgList->get_package_ptr(pkgNumber)->set_repository_tags(newPackages->at(i).get_repository_tags());
 				needUpdateRepositoryTags.push_back(true);
 			}
 			else needUpdateRepositoryTags.push_back(false);
-			
 			if (strcmp(pkgList->get_package_ptr(pkgNumber)->package_distro_version.c_str(), newPackages->at(i).package_distro_version.c_str())==0) {
 				pkgList->get_package_ptr(pkgNumber)->package_distro_version = newPackages->at(i).package_distro_version;
 				needUpdateDistroVersion.push_back(true);
 			}
 			else needUpdateDistroVersion.push_back(false);
-			
 			pkgList->get_package_ptr(pkgNumber)->set_dependencies(newPackages->at(i).get_dependencies());
 			pkgList->get_package_ptr(pkgNumber)->set_tags(newPackages->at(i).get_tags());
 
@@ -1769,7 +1735,6 @@ int mpkgDatabase::updateRepositoryData(PACKAGE_LIST *newPackages)
 			new_pkgs++;
 		}
 	}
-
 	//say("Clean up...\n");
 	// Вызываем синхронизацию данных.
 	// Вообще говоря, ее можно было бы делать прямо здесь, но пусть таки будет универсальность.
@@ -1778,19 +1743,19 @@ int mpkgDatabase::updateRepositoryData(PACKAGE_LIST *newPackages)
 	if (!dialogMode && new_pkgs>0) say(_("New packages in repositories: %ld\n"), (size_t) new_pkgs);
 	return 0;
 }
+
 int mpkgDatabase::syncronize_data(PACKAGE_LIST *pkgList, vector<bool> needUpdateRepositoryTags, vector<bool> needUpdateDistroVersion)
 {
 	if (verbose) printf("Sync...\n");
 	// Идея:
 	// Добавить в базу пакеты, у которых флаг newPackage
 	// Добавить locations к тем пакетам, которые такого флага не имеют
-	// 
+	//
 	// Алгоритм:
 	// Бежим по списку пакетов.
 	// 	Если пакет имеет влаг newPackage, то сразу добавляем его в базу функцией add_package_record()
 	//	Если флага нету, то сразу добавляем ему locations функцией add_locationlist_record()
-	// 
-	
+	//
 	SQLRecord *sqlUpdate = NULL;
 	for(size_t i=0; i<pkgList->size(); i++)
 	{
@@ -1822,7 +1787,6 @@ int mpkgDatabase::syncronize_data(PACKAGE_LIST *pkgList, vector<bool> needUpdate
 	clear_unreachable_packages();
 	if (verbose) printf("Done.\n");
 	return 0;
-
 }
 
 int mpkgDatabase::clear_unreachable_packages() {
@@ -1851,7 +1815,6 @@ int mpkgDatabase::clear_unreachable_packages() {
 	delete allList;
 	if (!dialogMode && rm_pkgs>0) say(_("Packages removed from repositories: %d\n"),rm_pkgs);
 	return 0;
-
 }
 
 
@@ -1904,8 +1867,6 @@ void HookManager::runHooks() {
 	printf("%s", _("Executing post-install hooks...\n"));
 	system("( cd " + SYS_ROOT + " ; for i in `find etc/mpkg/hooks -name '*.sh' -type f -perm 755` ; do echo " + string(_("Starting")) + " /$i ; PKG_INSTALLED='" + pkgInstalledStr + "' PKG_REMOVED='" + pkgRemovedStr + "' PKG_UPDATED='" + pkgUpdatedStr + "' $i ; echo /$i " + string(_("finished")) + " ; done )");
 	printf("%s", _("Post-install hooks completed\n"));
-
-
 }
 
 void HookManager::reset() {
@@ -1913,6 +1874,4 @@ void HookManager::reset() {
 	pkgRemoved.clear();
 	unlink(string(SYS_ROOT + "/var/mpkg/last_installed_files").c_str());
 	unlink(string(SYS_ROOT + "/var/mpkg/last_removed_files").c_str());
-	
 }
-
