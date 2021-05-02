@@ -14,11 +14,13 @@ source=("git:git://github.com/007exe/mpkg.git")
 # Tags
 tags="base sys-pkgtools"
 
+build_deps="curl mpkgsupport nwidgets sqlite libxml2"
+
 # Manually-added dependencies
 adddep="mpkg-i18n tar>=1.22 xz>=4.999 gzip sed wget"
 
 # Build system
-BUILD_KEYS="-DCMAKE_INSTALL_PREFIX=/usr -DLIB_SUFFIX=$LIBDIRSUFFIX"
+BUILD_KEYS="-DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_INSTALL_LIBDIR=$LIBDIRSUFFIX"
 
 build() {
 	go_src_dir
