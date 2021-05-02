@@ -1,45 +1,13 @@
-#
-# MOPSLinux packaging system
-#
-#
-cmake_minimum_required(VERSION 2.4)
-    if(COMMAND cmake_policy)
-      cmake_policy(SET CMP0003 NEW)
-    endif(COMMAND cmake_policy)
-# Project name
-PROJECT(LIBMPKG)
+cmake_minimum_required(VERSION 3.0)
 
-# Enabling building of shared libs
-SET(BUILD_SHARED_LIBS ON)
+PROJECT(mpkg-nwidgets)
 
-# Check 64 bit
-if (CMAKE_SIZEOF_VOID_P EQUAL 4)
-	SET(X86_64 OFF)
-else (CMAKE_SIZEOF_VOID_P EQUAL 4)
-	SET(X86_64 ON)
-	ADD_DEFINITIONS(-DX86_64)
-endif(CMAKE_SIZEOF_VOID_P EQUAL 4)
+add_definitions(-D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -DLARGEFILE64_SOURCE -DDL_CLEANUP -Wall -W -DNEW_INSTALL_SYSTEM -DUSE_SYSTEM_SED -DDEP_NORMALIZE -DLINUX_DEFINED)
+add_definitions(${CXXFLAGS})
+add_library(nwidgets SHARED ncurses_if.cpp)
+target_link_libraries(nwidgets ncursesw mpkgsupport)
 
-# Compilation definitions.
-ADD_DEFINITIONS(-D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -DLARGEFILE64_SOURCE -DDL_CLEANUP -Wall -W -DNEW_INSTALL_SYSTEM -DUSE_SYSTEM_SED -DDEP_NORMALIZE -DLINUX_DEFINED)
-ADD_DEFINITIONS(${CXXFLAGS})
-ADD_LIBRARY(nwidgets SHARED ncurses_if)
-TARGET_LINK_LIBRARIES(nwidgets ncursesw mpkgsupport)
-#ADD_LIBRARY(mpkg SHARED menu terminal package bus dbstruct HttpDownload errorcodes DownloadManager PackageConfig conditions config constants converter core dataunits debug dependencies libmpkg local_package mpkg mpkgsys repository sql_pool syscommands xmlParser htmlcore tests metaframe)
-#TARGET_LINK_LIBRARIES(mpkg xml2 curl sqlite3 mpkgsupport mpkgcurses)
+file(GLOB files "${CMAKE_CURRENT_SOURCE_DIR}/*.h")
+install(FILES ${files} DESTINATION include/nwidgets)
 
-FILE(GLOB files "${CMAKE_CURRENT_SOURCE_DIR}/*.h")
-INSTALL(FILES ${files} DESTINATION include/nwidgets)
-IF(X86_64)
-	INSTALL(TARGETS nwidgets
-		RUNTIME DESTINATION bin
-		LIBRARY DESTINATION lib64
-		ARCHIVE DESTINATION lib64
-	)
-ELSE(X86_64)
-	INSTALL(TARGETS nwidgets
-		RUNTIME DESTINATION bin
-		LIBRARY DESTINATION lib
-		ARCHIVE DESTINATION lib
-	)
-ENDIF(X86_64)
+install(TARGETS nwidgets LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR} PERMISSIONS OWNER_READ OWNER_WRITE GROUP_READ WORLD_READ)
