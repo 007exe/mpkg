@@ -1,0 +1,8 @@
+для сборки необходим libmysqlclient 
+
+для работы необходим файл конфигурации db.conf со следующим содержимым
+
+hostname
+username
+password
+dbname

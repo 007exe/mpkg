@@ -6,7 +6,7 @@
 #include <vector>
 
 
-#include <my_global.h>
+//#include <my_global.h>
 #include <mysql.h>
 using namespace std;
 
