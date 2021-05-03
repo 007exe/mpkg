@@ -10799,8 +10799,8 @@ msgstr ""
 #: ../lib/mpkg.cpp:2531 ../lib/mpkg.cpp:1768 ../lib/mpkg.cpp:1771
 #: ../lib/mpkg.cpp:1795 ../lib/mpkg.cpp:1790 ../lib/mpkg.cpp:1789
 #, c-format
-msgid "New packages in repositories: %d\n"
-msgstr "Новых пакетов в репозиториях: %d\n"
+msgid "New packages in repositories: %ld\n"
+msgstr "Новых пакетов в репозиториях: %ld\n"
 
 #: ../installer/setup.cpp:249 ../installer/setup.cpp:335
 #: ../installer/setup.cpp:258 ../installer/setup.cpp:344
