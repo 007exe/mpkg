@@ -47,9 +47,7 @@ file(GLOB aliases "${CMAKE_CURRENT_SOURCE_DIR}/aliases/mpkg-*")
 file(GLOB update_all_caches "${CMAKE_CURRENT_SOURCE_DIR}/update-all-caches")
 
 install(TARGETS mpkg-core mpkg-validate mpkg-setmeta mpkg-setprofile mpkg-saveprofile mpkg-listprofiles mpkg-deleteprofile mpkg-depgraph mpkg-checkdeps mpkg-altlist mpkg-altshow mpkg-quicklist mpkg-checklibdeps mpkg-maintainer mpkg-spkg2abuild mpkg-deporder mpkg-fixdeps mpkg-transactions mpkg-rollback mpkg-conflicts mpkg-checkconfigs mpkg-unused mpkg-compareversions mpkg-checkbackups mpkg-getopt mpkg-setopt mpkg-vercmp
-		RUNTIME DESTINATION bin
-		LIBRARY DESTINATION lib64
-		ARCHIVE DESTINATION lib64)
+		RUNTIME DESTINATION bin PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE GROUP_READ GROUP_EXECUTE WORLD_READ WORLD_EXECUTE)
 
 install(FILES ${aliases} DESTINATION bin PERMISSIONS WORLD_READ WORLD_EXECUTE OWNER_WRITE OWNER_READ OWNER_EXECUTE GROUP_READ GROUP_EXECUTE )
 install(FILES ${update_all_caches} DESTINATION bin PERMISSIONS WORLD_READ WORLD_EXECUTE OWNER_WRITE OWNER_READ OWNER_EXECUTE GROUP_READ GROUP_EXECUTE )
