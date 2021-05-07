@@ -4,6 +4,14 @@ project(mpkg-core)
 
 add_definitions(-D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -DLARGEFILE64_SOURCE -DDL_CLEANUP -I. -I/usr/include/libxml2 -Wall -W -DNEW_INSTALL_SYSTEM -DUSE_SYSTEM_SED -DDEP_NORMALIZE -DLINUX_DEFINED)
 
+# проверка для какой архитектуры собирается библиотека
+if (CMAKE_SIZEOF_VOID_P EQUAL 4)
+    set(X86_64 OFF)
+else (CMAKE_SIZEOF_VOID_P EQUAL 4)
+    set(X86_64 ON)
+    add_definitions(-DX86_64)
+endif(CMAKE_SIZEOF_VOID_P EQUAL 4)
+
 set(SRC_FILES
     "bus.cpp"
     "bus.h"
