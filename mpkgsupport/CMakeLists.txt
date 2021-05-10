@@ -1,49 +1,48 @@
-#
-# MOPSLinux packaging system
-#
-#
-cmake_minimum_required(VERSION 2.4)
-    if(COMMAND cmake_policy)
-      cmake_policy(SET CMP0003 NEW)
-    endif(COMMAND cmake_policy)
-# Project name
-PROJECT(LIBMPKG)
+cmake_minimum_required(VERSION 3.0)
 
-# Enabling building of shared libs
-SET(BUILD_SHARED_LIBS ON)
+project(mpkgsupport)
 
-# Check 64 bit
+set(BUILD_SHARED_LIBS ON)
+
 if (CMAKE_SIZEOF_VOID_P EQUAL 4)
-	SET(X86_64 OFF)
+  set(X86_64 OFF)
 else (CMAKE_SIZEOF_VOID_P EQUAL 4)
-	SET(X86_64 ON)
-	ADD_DEFINITIONS(-DX86_64)
+  set(X86_64 ON)
+  add_definitions(-DX86_64)
 endif(CMAKE_SIZEOF_VOID_P EQUAL 4)
 
-# Compilation definitions.
-ADD_DEFINITIONS(-D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -DLARGEFILE64_SOURCE -DDL_CLEANUP -Wall -W -DNEW_INSTALL_SYSTEM -DUSE_SYSTEM_SED -DDEP_NORMALIZE -DLINUX_DEFINED)
+add_definitions(-D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -DLARGEFILE64_SOURCE -DDL_CLEANUP -Wall -W -DNEW_INSTALL_SYSTEM -DUSE_SYSTEM_SED -DDEP_NORMALIZE -DLINUX_DEFINED)
 
-ADD_DEFINITIONS(${CXXFLAGS})
-#ADD_DEFINITIONS(-O0 -DDEBUG -g)
+add_definitions(${CXXFLAGS})
 
-ADD_LIBRARY(mpkgsupport SHARED file_routines string_operations globals fsystem)
-TARGET_LINK_LIBRARIES(mpkgsupport pthread)
+#add_definitions(-O0 -DDEBUG -g)
 
-ADD_EXECUTABLE(test test)
-TARGET_LINK_LIBRARIES(test mpkgsupport)
+set(SRC_FILES
+    "colors.h"
+    "constants.h"
+    "file_routines.cpp"
+    "file_routines.h"
+    "fsystem.cpp"
+    "fsystem.h"
+    "globals.cpp"
+    "globals.h"
+    "mpkgsupport.h"
+    "string_operations.cpp"
+    "string_operations.h"
+    "test.cpp"
+)
 
-FILE(GLOB files "${CMAKE_CURRENT_SOURCE_DIR}/*.h")
-INSTALL(FILES ${files} DESTINATION include/mpkgsupport)
-IF(X86_64)
-	INSTALL(TARGETS mpkgsupport
-		RUNTIME DESTINATION bin
-		LIBRARY DESTINATION lib64
-		ARCHIVE DESTINATION lib64
-	)
-ELSE(X86_64)
-	INSTALL(TARGETS mpkgsupport
-		RUNTIME DESTINATION bin
-		LIBRARY DESTINATION lib
-		ARCHIVE DESTINATION lib
-	)
-ENDIF(X86_64)
+add_library(mpkgsupport SHARED ${SRC_FILES} file_routines string_operations globals fsystem)
+
+target_link_libraries(mpkgsupport pthread)
+
+add_executable(test test)
+
+target_link_libraries(test mpkgsupport)
+
+file(GLOB files "${CMAKE_CURRENT_SOURCE_DIR}/*.h")
+
+install(FILES ${files} DESTINATION include/mpkgsupport)
+
+install(TARGETS mpkgsupport LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR} PERMISSIONS OWNER_READ OWNER_WRITE GROUP_READ WORLD_READ)
+
