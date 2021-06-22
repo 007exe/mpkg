@@ -1,6 +1,6 @@
 #ifndef NCURSES_IF_H_
 #define NCURSES_IF_H_
-#include <ncursesw/ncurses.h>
+#include <ncurses.h>
 #include <libintl.h>
 #include <iostream>
 #include <string>
